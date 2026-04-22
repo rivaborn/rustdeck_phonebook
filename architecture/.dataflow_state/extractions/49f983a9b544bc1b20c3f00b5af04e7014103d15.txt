@@ -1,0 +1,38 @@
+﻿# src/phonebook/__init__.py
+
+## Role
+Package initializer that re-exports core components for simplified imports.
+
+## Types Defined
+- Settings: config settings fields
+- Computer: database model fields
+- ComputerCreate: creation schema fields
+- ComputerOut: output schema fields
+- ComputerUpdate: update schema fields
+
+## Produces
+- get_settings() -> Settings [consumed by: application config]
+- get_db() -> Session [consumed by: database operations]
+- init_db() -> None [consumed by: application startup]
+- create_computer() -> Computer [consumed by: CRUD operations]
+- delete_computer() -> bool [consumed by: CRUD operations]
+- get_all_computers() -> List[Computer] [consumed by: CRUD operations]
+- get_computer() -> Computer [consumed by: CRUD operations]
+- search_computers() -> List[Computer] [consumed by: CRUD operations]
+- update_computer() -> Computer [consumed by: CRUD operations]
+- create_app() -> FastAPI [consumed by: application startup]
+- lifespan() -> AsyncGenerator [consumed by: application lifecycle]
+
+## Consumes
+- config.Settings -> Settings [used for: application configuration]
+- database.Session -> Session [used for: database operations]
+- models.Base -> Base [used for: database schema]
+- schemas.ComputerCreate -> ComputerCreate [used for: data validation]
+- schemas.ComputerOut -> ComputerOut [used for: data output]
+- schemas.ComputerUpdate -> ComputerUpdate [used for: data updates]
+
+## Threading
+None
+
+## Error Surface
+None

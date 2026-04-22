@@ -50,10 +50,18 @@ def create_computer(db: Session, data: ComputerCreate) -> Computer:
     
     # Add to session and commit
     db.add(computer)
-    db.commit()
+    try:
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise
     
     # Refresh to get generated id and timestamps
-    db.refresh(computer)
+    try:
+        db.refresh(computer)
+    except Exception:
+        db.rollback()
+        raise
     
     return computer
 
@@ -83,8 +91,16 @@ def update_computer(db: Session, computer_id: int, data: ComputerUpdate) -> Comp
     computer.updated_at = datetime.now(pytz.UTC).isoformat()
     
     # Commit changes
-    db.commit()
-    db.refresh(computer)
+    try:
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise
+    try:
+        db.refresh(computer)
+    except Exception:
+        db.rollback()
+        raise
     
     return computer
 
@@ -98,6 +114,10 @@ def delete_computer(db: Session, computer_id: int) -> bool:
     
     # Delete and commit
     db.delete(computer)
-    db.commit()
+    try:
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise
     
     return True

@@ -1,0 +1,19 @@
+﻿# src/phonebook/models.py
+
+## Role
+Data persistence model definition for computer inventory
+
+## Types Defined
+- Computer: id: Integer, friendly_name: String, rustdesk_id: String, hostname: String, local_ip: String, operating_system: String, username: String, location: String, notes: String, tags: String, created_at: DateTime, updated_at: DateTime
+
+## Produces
+None
+
+## Consumes
+None
+
+## Threading
+None
+
+## Error Surface
+None

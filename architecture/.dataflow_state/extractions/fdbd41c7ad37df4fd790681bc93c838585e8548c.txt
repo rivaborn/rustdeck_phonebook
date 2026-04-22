@@ -1,0 +1,21 @@
+﻿# src/phonebook/routes/__init__.py
+
+## Role
+Package initializer that re-exports route components for easy access.
+
+## Types Defined
+- router: FastAPI, templates: Jinja2Templates
+
+## Produces
+- router() -> FastAPIRouter [consumed by: main application]
+- templates() -> Jinja2Templates [consumed by: main application]
+
+## Consumes
+- [computers module].router() -> FastAPIRouter [used for: application routing]
+- [computers module].templates() -> Jinja2Templates [used for: template rendering]
+
+## Threading
+None
+
+## Error Surface
+None

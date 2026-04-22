@@ -1,0 +1,23 @@
+﻿# src/phonebook/schemas.py
+
+## Role
+Data validation and serialization layer for computer records in the phonebook pipeline.
+
+## Types Defined
+- ComputerCreate: friendly_name: str, rustdesk_id: str, hostname: Optional[str], local_ip: Optional[str], operating_system: Optional[str], username: Optional[str], location: Optional[str], notes: Optional[str], tags: Optional[str]
+- ComputerUpdate: friendly_name: Optional[str], rustdesk_id: Optional[str], hostname: Optional[str], local_ip: Optional[str], operating_system: Optional[str], username: Optional[str], location: Optional[str], notes: Optional[str], tags: Optional[str]
+- ComputerOut: id: int, friendly_name: str, rustdesk_id: str, hostname: Optional[str], local_ip: Optional[str], operating_system: Optional[str], username: Optional[str], location: Optional[str], notes: Optional[str], tags: Optional[str], created_at: str, updated_at: str
+
+## Produces
+- ComputerCreate() -> ComputerCreate [consumed by: data validation layer]
+- ComputerUpdate() -> ComputerUpdate [consumed by: data validation layer]
+- ComputerOut() -> ComputerOut [consumed by: API response serializer]
+
+## Consumes
+- Computer() model from phonebook.models [used for: data validation and serialization]
+
+## Threading
+None
+
+## Error Surface
+- ValueError raised during field validation [used for: input sanitization]

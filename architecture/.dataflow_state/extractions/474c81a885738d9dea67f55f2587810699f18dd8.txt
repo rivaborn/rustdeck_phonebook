@@ -1,0 +1,24 @@
+﻿# src/phonebook/database.py
+
+## Role
+Database persistence setup and session management for the application.
+
+## Types Defined
+- Base: declarative_base instance for SQLAlchemy models
+
+## Produces
+- create_engine(database_url: str, connect_args: dict) -> object [consumed by: get_sessionmaker]
+- get_sessionmaker(autocommit: bool, autoflush: bool, bind: object) -> object [consumed by: get_db]
+- get_settings_instance() -> object [consumed by: init_db, get_db]
+- init_db() -> None [consumed by: application startup]
+- get_db() -> Generator[Session, None, None] [consumed by: dependency injection]
+
+## Consumes
+- [get_settings].get_settings() -> Settings [used for: database URL configuration]
+- [Base].Base [used for: table creation in init_db]
+
+## Threading
+None
+
+## Error Surface
+None

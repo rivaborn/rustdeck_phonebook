@@ -1,0 +1,10 @@
+﻿474c81a885738d9dea67f55f2587810699f18dd8	src/phonebook/database.py
+485c6883049fe5a4ee64c41522ed018b910d9753	src/phonebook/routes/computers.py
+49f983a9b544bc1b20c3f00b5af04e7014103d15	src/phonebook/__init__.py
+73c9e263ef683c619f6ba915dbd05b59b5a44ba0	src/phonebook/models.py
+842cda9fe68cb473b12ee0e1488cf5a351e0a0d2	src/phonebook/crud.py
+906a955347bc38bf9775610d3a0986aed8ed6d81	src/phonebook/schemas.py
+a7e84de39a07c98ef9db3c21af32fbc57897923c	src/phonebook/routes/export.py
+cb095915ac76f4aeb89b0a1cc09b328a560695bd	src/phonebook/main.py
+f95ce7639d03be69457b332d6582bd6a9b1db0c3	src/phonebook/config.py
+fdbd41c7ad37df4fd790681bc93c838585e8548c	src/phonebook/routes/__init__.py
