@@ -1,0 +1,34 @@
+﻿# src/phonebook/routes/computers.py
+
+## Role
+API endpoint handler for computer management operations in a web application data pipeline.
+
+## Types Defined
+- ComputerCreate: id: int, rustdesk_id: str, hostname: str, ip_address: str, location: str, notes: str
+- ComputerUpdate: id: int, rustdesk_id: str, hostname: str, ip_address: str, location: str, notes: str
+
+## Produces
+- list_computers() -> Response [consumed by: web client]
+- new_computer_form() -> Response [consumed by: web client]
+- computer_detail() -> Response [consumed by: web client]
+- edit_computer_form() -> Response [consumed by: web client]
+- create_computer_route() -> Response [consumed by: web client]
+- update_computer_route() -> Response [consumed by: web client]
+- delete_computer_route() -> Response [consumed by: web client]
+- search_computers_route() -> Response [consumed by: web client]
+
+## Consumes
+- get_db() -> Session [used for: database operations]
+- get_all_computers() -> List[Computer] [used for: listing computers]
+- get_computer() -> Computer [used for: retrieving specific computer]
+- search_computers() -> List[Computer] [used for: searching computers]
+- create_computer() -> Computer [used for: creating new computer]
+- update_computer() -> Computer [used for: updating existing computer]
+- delete_computer() -> None [used for: deleting computer]
+
+## Threading
+None
+
+## Error Surface
+- HTTPException(status_code=404, detail="Computer not found") [raised by: computer_detail, edit_computer_form, update_computer_route, delete_computer_route]
+- IntegrityError [caught by: create_computer_route, update_com

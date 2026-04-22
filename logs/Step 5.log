@@ -1,0 +1,30 @@
+
+  Step 5/6 - Propose Bug Fixes (advisory, per file)
+  Proposing fixes for 10 file(s)...
+    1/10 - src/phonebook/__init__.py [qwen3-coder:30b]
+      [local: qwen3-coder:30b ctx=32768] - (17:23:35)
+      1/10 - done
+    2/10 - src/phonebook/config.py [qwen3-coder:30b]
+      [local: qwen3-coder:30b ctx=32768] - (17:23:40)
+      2/10 - done
+    3/10 - src/phonebook/crud.py [qwen3-coder:30b]
+      [local: qwen3-coder:30b ctx=32768] - (17:23:47)
+      3/10 - done
+    4/10 - src/phonebook/database.py [qwen3-coder:30b]
+      [local: qwen3-coder:30b ctx=32768] - (17:23:54)
+      4/10 - done
+    5/10 - src/phonebook/main.py [qwen3-coder:30b]
+      [local: qwen3-coder:30b ctx=32768] - (17:24:06)
+      5/10 - done
+    6/10 - src/phonebook/models.py [clean - skipped]
+    7/10 - src/phonebook/routes/__init__.py [clean - skipped]
+    8/10 - src/phonebook/routes/computers.py [qwen3-coder:30b]
+      [local: qwen3-coder:30b ctx=32768] - (17:24:18)
+      8/10 - done
+    9/10 - src/phonebook/routes/export.py [qwen3-coder:30b]
+      [local: qwen3-coder:30b ctx=32768] - (17:24:28)
+      9/10 - done
+    10/10 - src/phonebook/schemas.py [qwen3-coder:30b]
+      [local: qwen3-coder:30b ctx=32768] - (17:24:38)
+      10/10 - done
+  Step 5 complete - proposals written to debug_proposals.md

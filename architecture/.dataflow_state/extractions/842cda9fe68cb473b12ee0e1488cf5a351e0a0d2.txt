@@ -1,0 +1,30 @@
+﻿# src/phonebook/crud.py
+
+## Role
+Data persistence layer for computer entity operations.
+
+## Types Defined
+- ComputerCreate: friendly_name: str, rustdesk_id: str, hostname: str, local_ip: str, tags: str, notes: str
+- ComputerUpdate: friendly_name: str | None, rustdesk_id: str | None, hostname: str | None, local_ip: str | None, tags: str | None, notes: str | None
+
+## Produces
+- get_all_computers(db: Session) -> list[Computer] [consumed by: API endpoints, UI]
+- get_computer(db: Session, computer_id: int) -> Computer | None [consumed by: API endpoints, UI]
+- search_computers(db: Session, q: str) -> list[Computer] [consumed by: API endpoints, UI]
+- create_computer(db: Session, data: ComputerCreate) -> Computer [consumed by: API endpoints]
+- update_computer(db: Session, computer_id: int, data: ComputerUpdate) -> Computer | None [consumed by: API endpoints]
+- delete_computer(db: Session, computer_id: int) -> bool [consumed by: API endpoints]
+
+## Consumes
+- [Session].query() -> Query [used for: database operations]
+- [Computer].filter() -> Query [used for: database filtering]
+- [Computer].add() -> None [used for: adding new records]
+- [Computer].commit() -> None [used for: persisting changes]
+- [Computer].refresh() -> None [used for: updating object state]
+
+## Threading
+None
+
+## Error Surface
+- search_computers() raises ValueError [for empty search query]
+- create_computer() raises IntegrityError [from database constraints]

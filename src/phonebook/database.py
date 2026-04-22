@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from phonebook.config import get_settings
+from urllib.parse import urlparse
 
 # Create the SQLAlchemy engine
 def create_engine(database_url: str, connect_args: dict) -> object:
@@ -60,14 +61,21 @@ def init_db() -> None:
     # Get the database URL from settings
     settings = get_settings_instance()
     
-    # Create the engine with appropriate connection arguments
-    engine = create_engine(
-        settings.DATABASE_URL,
-        connect_args={"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {}
-    )
+    if not settings.DATABASE_URL:
+        raise ValueError("DATABASE_URL must be configured")
     
-    # Create all tables
-    Base.metadata.create_all(bind=engine)
+    # Create the engine with appropriate connection arguments
+    try:
+        engine = create_engine(
+            settings.DATABASE_URL,
+            connect_args={"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {}
+        )
+        
+        # Create all tables
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        # Log error here if logging is implemented
+        raise
 
 # Get database session
 def get_db() -> Generator[Session, None, None]:
@@ -83,7 +91,10 @@ def get_db() -> Generator[Session, None, None]:
     # Get the database URL from settings
     settings = get_settings_instance()
     
-    # Create the engine with appropriate connection arguments
+    if not settings.DATABASE_URL:
+        raise ValueError("DATABASE_URL must be configured")
+    
+    # Create the engine once
     engine = create_engine(
         settings.DATABASE_URL,
         connect_args={"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {}
@@ -98,6 +109,10 @@ def get_db() -> Generator[Session, None, None]:
     try:
         # Yield the session to the caller
         yield db
+    except Exception:
+        # Ensure engine cleanup on exceptions
+        engine.dispose()
+        raise
     finally:
         # Ensure the session is closed
         db.close()

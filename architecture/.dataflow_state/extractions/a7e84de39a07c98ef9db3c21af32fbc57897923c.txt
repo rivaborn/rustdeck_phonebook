@@ -1,0 +1,22 @@
+﻿# src/phonebook/routes/export.py
+
+## Role
+Data export endpoint handler for computer records.
+
+## Types Defined
+- ComputerOut: id: int, name: str, ip_address: str, last_seen: datetime, ...
+
+## Produces
+- export_json(request: Request) -> JSONResponse [consumed by: FastAPI router]
+- export_csv(request: Request) -> StreamingResponse [consumed by: FastAPI router]
+
+## Consumes
+- [database].get_db() -> Generator [used for: database session]
+- [crud].get_all_computers(db) -> List [used for: computer data]
+
+## Threading
+None
+
+## Error Surface
+- HTTPException(status_code=500, detail="Internal server error during JSON export") [raised by: export_json]
+- HTTPException(status_code=500, detail="Internal server error during CSV export") [raised by: export_csv]

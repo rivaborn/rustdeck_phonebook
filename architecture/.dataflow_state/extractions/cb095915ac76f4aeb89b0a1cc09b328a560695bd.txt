@@ -1,0 +1,20 @@
+﻿# src/phonebook/main.py
+
+## Role
+Application factory and lifecycle manager for the FastAPI web service.
+
+## Types Defined
+- FastAPI: app: FastAPI, lifespan: AsyncGenerator[None, None]
+
+## Produces
+- create_app() -> FastAPI [consumed by: application startup]
+
+## Consumes
+- get_settings() -> Settings [used for: application configuration]
+- init_db() -> None [used for: database initialization]
+
+## Threading
+None
+
+## Error Surface
+None

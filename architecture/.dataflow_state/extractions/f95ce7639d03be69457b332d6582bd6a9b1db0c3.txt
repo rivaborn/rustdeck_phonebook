@@ -1,0 +1,19 @@
+﻿# src/phonebook/config.py
+
+## Role
+Configuration loader for application settings.
+
+## Types Defined
+- Settings: HOST: str, PORT: int, DATABASE_URL: str, DEBUG: bool
+
+## Produces
+- get_settings() -> Settings [consumed by: application modules requiring config]
+
+## Consumes
+- Environment variables and .env file [used for: initializing Settings instance]
+
+## Threading
+None
+
+## Error Surface
+None
