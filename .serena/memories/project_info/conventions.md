@@ -1,0 +1,11 @@
+Code conventions and style:
+- Uses Pydantic for data validation and serialization
+- Python 3.x with type hints
+- Follows PEP 8 style guide
+- Uses class-based schemas for data models
+- Data validation with Pydantic validators
+- Schema definitions separated by operation (Create, Update, Out)
+- Uses Optional types for nullable fields
+- Uses descriptive field names with snake_case
+- Follows standard FastAPI/Flask project structure
+- Uses docstrings for functions and classes

@@ -1,0 +1,251 @@
+INFO  2026-04-22 11:15:35,686 serena.cli:health_check:906 - Starting health check for project: C:\Coding\WorkFolder\rustdeck_phonebook
+INFO  2026-04-22 11:15:35,686 serena.cli:health_check:910 - Creating SerenaAgent with disabled dashboard...
+INFO  2026-04-22 11:15:35,691 serena.util.file_system:stop:336 - Loading of .gitignore files completed in 0.007 seconds
+INFO  2026-04-22 11:15:35,691 serena.project:stop:336 - Gathering ignore spec for project rustdeck_phonebook completed in 0.008 seconds
+INFO  2026-04-22 11:15:35,851 serena.agent:__init__:418 - Will record tool usage statistics with token count estimator: CHAR_COUNT.
+INFO  2026-04-22 11:15:35,892 serena.agent:__init__:422 - Starting Serena server (version=1.1.2, process id=61016, parent process id=56648; language backend=LSP); Python version=3.12.13, platform=Windows-11-10.0.26200-SP0
+INFO  2026-04-22 11:15:35,892 serena.agent:__init__:426 - Configuration file: C:\Users\folar\.serena\serena_config.yml
+INFO  2026-04-22 11:15:35,892 serena.agent:__init__:427 - Available projects: rustdeck_phonebook
+INFO  2026-04-22 11:15:35,892 serena.agent:__init__:428 - Loaded tools (44): read_file, create_text_file, list_dir, find_file, replace_content, delete_lines, replace_lines, insert_at_line, search_for_pattern, restart_language_server, get_symbols_overview, find_symbol, find_referencing_symbols, replace_symbol_body, insert_after_symbol, insert_before_symbol, rename_symbol, safe_delete_symbol, write_memory, read_memory, list_memories, delete_memory, rename_memory, edit_memory, execute_shell_command, open_dashboard, activate_project, remove_project, get_current_config, check_onboarding_performed, onboarding, initial_instructions, jet_brains_find_symbol, jet_brains_move, jet_brains_safe_delete, jet_brains_inline_symbol, jet_brains_find_referencing_symbols, jet_brains_get_symbols_overview, jet_brains_type_hierarchy, jet_brains_find_declaration, jet_brains_find_implementations, jet_brains_rename, list_queryable_projects, query_project
+INFO  2026-04-22 11:15:35,892 serena.agent:__init__:440 - Using language backend from global configuration: LSP
+INFO  2026-04-22 11:15:35,906 serena.config.serena_config:start:329 - Loading project instance for RegisteredProject[project_root=C:\Coding\WorkFolder\rustdeck_phonebook, project_config=ProjectConfig[project_name=rustdeck_phonebook]] starting ...
+INFO  2026-04-22 11:15:35,906 serena.project:__init__:281 - Serena project data folder: C:\Coding\WorkFolder\rustdeck_phonebook\.serena
+INFO  2026-04-22 11:15:35,908 serena.project:start:329 - Gathering ignore spec for project rustdeck_phonebook starting ...
+INFO  2026-04-22 11:15:35,908 serena.config.serena_config:stop:336 - Loading project instance for RegisteredProject[project_root=C:\Coding\WorkFolder\rustdeck_phonebook, project_config=ProjectConfig[project_name=rustdeck_phonebook]] completed in 0.001 seconds
+INFO  2026-04-22 11:15:35,908 serena.util.file_system:start:329 - Loading of .gitignore files starting ...
+INFO  2026-04-22 11:15:35,908 serena.agent:activate_project_from_path_or_name:1001 - Found registered project 'rustdeck_phonebook' at path C:\Coding\WorkFolder\rustdeck_phonebook
+INFO  2026-04-22 11:15:35,908 serena.agent:_activate_project:942 - Activating rustdeck_phonebook at C:\Coding\WorkFolder\rustdeck_phonebook
+INFO  2026-04-22 11:15:35,909 serena.task_executor:issue_task:192 - Scheduling Task-1:init_language_server_manager
+INFO  2026-04-22 11:15:35,909 serena.agent:_update_active_modes:871 - Active modes (2): editing, interactive
+INFO  2026-04-22 11:15:35,909 serena.util.file_system:_load_gitignore_files:152 - Processing .gitignore file: C:\Coding\WorkFolder\rustdeck_phonebook\.serena\.gitignore
+INFO  2026-04-22 11:15:35,913 serena.agent:_create_base_toolset:583 - Number of exposed tools: 26
+INFO  2026-04-22 11:15:35,916 serena.agent:__init__:465 - Number of exposed tools: 26. Exposed tools: ['activate_project', 'check_onboarding_performed', 'create_text_file', 'delete_memory', 'edit_memory', 'execute_shell_command', 'find_file', 'find_referencing_symbols', 'find_symbol', 'get_current_config', 'get_symbols_overview', 'initial_instructions', 'insert_after_symbol', 'insert_before_symbol', 'list_dir', 'list_memories', 'onboarding', 'read_file', 'read_memory', 'rename_memory', 'rename_symbol', 'replace_content', 'replace_symbol_body', 'safe_delete_symbol', 'search_for_pattern', 'write_memory']
+INFO  2026-04-22 11:15:35,916 serena.agent:_update_active_tools:889 - Active tools (26): activate_project, check_onboarding_performed, create_text_file, delete_memory, edit_memory, execute_shell_command, find_file, find_referencing_symbols, find_symbol, get_current_config, get_symbols_overview, initial_instructions, insert_after_symbol, insert_before_symbol, list_dir, list_memories, onboarding, read_file, read_memory, rename_memory, rename_symbol, replace_content, replace_symbol_body, safe_delete_symbol, search_for_pattern, write_memory
+INFO  2026-04-22 11:15:35,920 serena.util.file_system:stop:336 - Loading of .gitignore files completed in 0.012 seconds
+INFO  2026-04-22 11:15:35,921 serena.project:stop:336 - Gathering ignore spec for project rustdeck_phonebook completed in 0.013 seconds
+INFO  2026-04-22 11:15:35,994 serena.task_executor:_process_task_queue:123 - Starting execution of Task-1:init_language_server_manager
+INFO  2026-04-22 11:15:35,994 serena.task_executor:start:329 - Task-1:init_language_server_manager starting ...
+INFO  2026-04-22 11:15:35,994 serena.agent:start:329 - Language server initialization starting ...
+INFO  2026-04-22 11:15:35,995 serena.project:create_language_server_manager:653 - Creating language server manager for C:\Coding\WorkFolder\rustdeck_phonebook
+INFO  2026-04-22 11:15:35,995 sensai.util.logging:start:329 - Language server startup (language=python) starting ...
+INFO  2026-04-22 11:15:35,995 serena.ls_manager:create_language_server:48 - Creating language server instance for C:\Coding\WorkFolder\rustdeck_phonebook, language=python.
+INFO  2026-04-22 11:15:36,006 solidlsp.ls:start:2578 - Starting language server with language python for C:\Coding\WorkFolder\rustdeck_phonebook
+INFO  2026-04-22 11:15:36,006 solidlsp.language_servers.pyright_server:_start_server:177 - Starting pyright-langserver server process
+INFO  2026-04-22 11:15:36,006 solidlsp.ls_process:start:192 - Starting language server process via command: ['C:\\Users\\folar\\AppData\\Roaming\\uv\\tools\\serena-agent\\Scripts\\python.exe', '-m', 'pyright.langserver', '--stdio']
+INFO  2026-04-22 11:15:36,017 solidlsp.language_servers.pyright_server:_start_server:183 - Sending initialize request from LSP client to pyright server and awaiting response
+INFO  2026-04-22 11:15:36,338 serena.cli:health_check:913 - SerenaAgent created successfully
+INFO  2026-04-22 11:15:36,338 serena.cli:health_check:916 - Searching for analyzable files...
+INFO  2026-04-22 11:15:36,348 serena.cli:health_check:925 - Found analyzable file: python seed_data.py
+INFO  2026-04-22 11:15:36,349 serena.cli:health_check:943 - Testing GetSymbolsOverviewTool on file: python seed_data.py
+INFO  2026-04-22 11:15:36,349 serena.task_executor:issue_task:192 - Scheduling Task-2:<lambda>
+INFO  2026-04-22 11:15:36,795 solidlsp.ls_process:_read_ls_process_stderr:388 -  * Environment already exists: C:\Users\folar\.cache\pyright-python\nodeenv
+
+INFO  2026-04-22 11:15:36,819 solidlsp.ls_process:_read_ls_process_stderr:388 - Traceback (most recent call last):
+
+INFO  2026-04-22 11:15:36,819 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\pyright\node.py", line 93, in _install_node_env
+
+INFO  2026-04-22 11:15:36,820 solidlsp.ls_process:_read_ls_process_stderr:388 -     subprocess.run(args, check=True)
+
+INFO  2026-04-22 11:15:36,820 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\subprocess.py", line 571, in run
+
+ERROR 2026-04-22 11:15:36,820 solidlsp.ls_process:_read_ls_process_stderr:388 -     raise CalledProcessError(retcode, process.args,
+
+ERROR 2026-04-22 11:15:36,821 solidlsp.ls_process:_read_ls_process_stderr:388 - subprocess.CalledProcessError: Command '['C:\\Users\\folar\\AppData\\Roaming\\uv\\tools\\serena-agent\\Scripts\\python.exe', '-m', 'nodeenv', 'C:\\Users\\folar\\.cache\\pyright-python\\nodeenv']' returned non-zero exit status 2.
+
+INFO  2026-04-22 11:15:36,821 solidlsp.ls_process:_read_ls_process_stderr:388 - 
+
+ERROR 2026-04-22 11:15:36,821 solidlsp.ls_process:_read_ls_process_stderr:388 - The above exception was the direct cause of the following exception:
+
+INFO  2026-04-22 11:15:36,821 solidlsp.ls_process:_read_ls_process_stderr:388 - 
+
+INFO  2026-04-22 11:15:36,821 solidlsp.ls_process:_read_ls_process_stderr:388 - Traceback (most recent call last):
+
+INFO  2026-04-22 11:15:36,821 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "<frozen runpy>", line 198, in _run_module_as_main
+
+INFO  2026-04-22 11:15:36,821 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "<frozen runpy>", line 88, in _run_code
+
+INFO  2026-04-22 11:15:36,821 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\pyright\langserver.py", line 33, in <module>
+
+INFO  2026-04-22 11:15:36,821 solidlsp.ls_process:_read_ls_process_stderr:388 -     entrypoint()
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\pyright\langserver.py", line 29, in entrypoint
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -     sys.exit(main(*sys.argv[1:]))
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -              ^^^^^^^^^^^^^^^^^^^
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\pyright\langserver.py", line 12, in main
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -     return run(*args, **kwargs).returncode
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -            ^^^^^^^^^^^^^^^^^^^^
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\pyright\langserver.py", line 25, in run
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -     return node.run('node', str(binary), '--', *args, **kwargs)
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\pyright\node.py", line 138, in run
+
+INFO  2026-04-22 11:15:36,822 solidlsp.ls_process:_read_ls_process_stderr:388 -     strategy = _resolve_strategy(target)
+
+INFO  2026-04-22 11:15:36,823 solidlsp.ls_process:_read_ls_process_stderr:388 -                ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+INFO  2026-04-22 11:15:36,823 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\pyright\node.py", line 130, in _resolve_strategy
+
+INFO  2026-04-22 11:15:36,823 solidlsp.ls_process:_read_ls_process_stderr:388 -     return NodeenvStrategy(type='nodeenv', path=_ensure_node_env(target))
+
+INFO  2026-04-22 11:15:36,823 solidlsp.ls_process:_read_ls_process_stderr:388 -                                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+
+INFO  2026-04-22 11:15:36,823 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\pyright\node.py", line 54, in _ensure_node_env
+
+INFO  2026-04-22 11:15:36,823 solidlsp.ls_process:_read_ls_process_stderr:388 -     _install_node_env()
+
+INFO  2026-04-22 11:15:36,823 solidlsp.ls_process:_read_ls_process_stderr:388 -   File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\pyright\node.py", line 95, in _install_node_env
+
+ERROR 2026-04-22 11:15:36,824 solidlsp.ls_process:_read_ls_process_stderr:388 -     raise RuntimeError(
+
+ERROR 2026-04-22 11:15:36,824 solidlsp.ls_process:_read_ls_process_stderr:388 - RuntimeError: nodeenv failed; for more reliable node.js binaries try `pip install pyright[nodejs]`
+
+ERROR 2026-04-22 11:15:36,846 solidlsp.ls_process:_read_ls_process_stderr:392 - Language server stderr reader thread terminated unexpectedly
+INFO  2026-04-22 11:15:36,846 solidlsp.ls_process:_read_ls_process_stdout:367 - Language server stdout reader thread has terminated
+ERROR 2026-04-22 11:15:36,846 solidlsp.ls_process:_read_ls_process_stdout:371 - LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly
+INFO  2026-04-22 11:15:36,847 solidlsp.ls_process:_cancel_pending_requests:450 - Cancelling 1 pending language server requests
+INFO  2026-04-22 11:15:36,847 solidlsp.ls_process:_cancel_pending_requests:452 - Cancelling Request[status='pending', method='initialize', request_id=1]
+ERROR 2026-04-22 11:15:36,847 sensai.util.logging:__exit__:342 - Language server startup (language=python) failed after 0.852 seconds
+ERROR 2026-04-22 11:15:36,848 serena.ls_manager:_start_language_server:113 - Error starting language server for language python: Error processing request initialize with params:
+{'processId': 61016, 'rootPath': 'C:\\Coding\\WorkFolder\\rustdeck_phonebook', 'rootUri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'initializationOptions': {'exclude': ['**/__pycache__', '**/.venv', '**/.env', '**/build', '**/dist', '**/.pixi'], 'reportMissingImports': 'error'}, 'capabilities': {'workspace': {'workspaceEdit': {'documentChanges': True}, 'didChangeConfiguration': {'dynamicRegistration': True}, 'didChangeWatchedFiles': {'dynamicRegistration': True}, 'symbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}}, 'executeCommand': {'dynamicRegistration': True}}, 'textDocument': {'synchronization': {'dynamicRegistration': True, 'willSave': True, 'willSaveWaitUntil': True, 'didSave': True}, 'hover': {'dynamicRegistration': True, 'contentFormat': ['markdown', 'plaintext']}, 'signatureHelp': {'dynamicRegistration': True, 'signatureInformation': {'documentationFormat': ['markdown', 'plaintext'], 'parameterInformation': {'labelOffsetSupport': True}}}, 'definition': {'dynamicRegistration': True}, 'references': {'dynamicRegistration': True}, 'documentSymbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}, 'hierarchicalDocumentSymbolSupport': True}, 'publishDiagnostics': {'relatedInformation': True}}}, 'workspaceFolders': [{'uri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'name': 'rustdeck_phonebook'}]}
+(caused by LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly)
+solidlsp.ls_process.LanguageServerTerminatedException: LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\ls_manager.py", line 109, in _start_language_server
+    self.language_server.start()
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls.py", line 2579, in start
+    self._start_server_process()
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls.py", line 725, in _start_server_process
+    self._start_server()
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\language_servers\pyright_server.py", line 184, in _start_server
+    init_response = self.server.send.initialize(initialize_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls_request.py", line 219, in initialize
+    return self._send_request("initialize", params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls_request.py", line 14, in _send_request
+    return self.handler.send_request(method, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls_process.py", line 477, in send_request
+    raise SolidLSPException(f"Error processing request {method} with params:\n{params}", cause=result.error) from result.error
+solidlsp.ls_exceptions.SolidLSPException: Error processing request initialize with params:
+{'processId': 61016, 'rootPath': 'C:\\Coding\\WorkFolder\\rustdeck_phonebook', 'rootUri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'initializationOptions': {'exclude': ['**/__pycache__', '**/.venv', '**/.env', '**/build', '**/dist', '**/.pixi'], 'reportMissingImports': 'error'}, 'capabilities': {'workspace': {'workspaceEdit': {'documentChanges': True}, 'didChangeConfiguration': {'dynamicRegistration': True}, 'didChangeWatchedFiles': {'dynamicRegistration': True}, 'symbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}}, 'executeCommand': {'dynamicRegistration': True}}, 'textDocument': {'synchronization': {'dynamicRegistration': True, 'willSave': True, 'willSaveWaitUntil': True, 'didSave': True}, 'hover': {'dynamicRegistration': True, 'contentFormat': ['markdown', 'plaintext']}, 'signatureHelp': {'dynamicRegistration': True, 'signatureInformation': {'documentationFormat': ['markdown', 'plaintext'], 'parameterInformation': {'labelOffsetSupport': True}}}, 'definition': {'dynamicRegistration': True}, 'references': {'dynamicRegistration': True}, 'documentSymbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}, 'hierarchicalDocumentSymbolSupport': True}, 'publishDiagnostics': {'relatedInformation': True}}}, 'workspaceFolders': [{'uri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'name': 'rustdeck_phonebook'}]}
+(caused by LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly)
+ERROR 2026-04-22 11:15:36,854 serena.agent:__exit__:342 - Language server initialization failed after 0.860 seconds
+ERROR 2026-04-22 11:15:36,854 serena.task_executor:__exit__:342 - Task-1:init_language_server_manager failed after 0.860 seconds
+ERROR 2026-04-22 11:15:36,854 serena.task_executor:run_task:62 - Error during execution of Task-1:init_language_server_manager: Failed to start 1 language server(s):
+python: Error processing request initialize with params:
+{'processId': 61016, 'rootPath': 'C:\\Coding\\WorkFolder\\rustdeck_phonebook', 'rootUri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'initializationOptions': {'exclude': ['**/__pycache__', '**/.venv', '**/.env', '**/build', '**/dist', '**/.pixi'], 'reportMissingImports': 'error'}, 'capabilities': {'workspace': {'workspaceEdit': {'documentChanges': True}, 'didChangeConfiguration': {'dynamicRegistration': True}, 'didChangeWatchedFiles': {'dynamicRegistration': True}, 'symbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}}, 'executeCommand': {'dynamicRegistration': True}}, 'textDocument': {'synchronization': {'dynamicRegistration': True, 'willSave': True, 'willSaveWaitUntil': True, 'didSave': True}, 'hover': {'dynamicRegistration': True, 'contentFormat': ['markdown', 'plaintext']}, 'signatureHelp': {'dynamicRegistration': True, 'signatureInformation': {'documentationFormat': ['markdown', 'plaintext'], 'parameterInformation': {'labelOffsetSupport': True}}}, 'definition': {'dynamicRegistration': True}, 'references': {'dynamicRegistration': True}, 'documentSymbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}, 'hierarchicalDocumentSymbolSupport': True}, 'publishDiagnostics': {'relatedInformation': True}}}, 'workspaceFolders': [{'uri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'name': 'rustdeck_phonebook'}]}
+(caused by LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly)
+Traceback (most recent call last):
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 57, in run_task
+    result = self._function()
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\agent.py", line 977, in init_language_server_manager
+    self.reset_language_server_manager()
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\agent.py", line 1086, in reset_language_server_manager
+    self.get_active_project_or_raise().create_language_server_manager()
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\project.py", line 665, in create_language_server_manager
+    self.language_server_manager = LanguageServerManager.from_languages(self.project_config.languages, factory)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\ls_manager.py", line 142, in from_languages
+    raise LanguageServerManagerInitialisationError(f"Failed to start {len(exceptions)} language server(s):\n{failure_messages}")
+serena.ls_manager.LanguageServerManagerInitialisationError: Failed to start 1 language server(s):
+python: Error processing request initialize with params:
+{'processId': 61016, 'rootPath': 'C:\\Coding\\WorkFolder\\rustdeck_phonebook', 'rootUri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'initializationOptions': {'exclude': ['**/__pycache__', '**/.venv', '**/.env', '**/build', '**/dist', '**/.pixi'], 'reportMissingImports': 'error'}, 'capabilities': {'workspace': {'workspaceEdit': {'documentChanges': True}, 'didChangeConfiguration': {'dynamicRegistration': True}, 'didChangeWatchedFiles': {'dynamicRegistration': True}, 'symbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}}, 'executeCommand': {'dynamicRegistration': True}}, 'textDocument': {'synchronization': {'dynamicRegistration': True, 'willSave': True, 'willSaveWaitUntil': True, 'didSave': True}, 'hover': {'dynamicRegistration': True, 'contentFormat': ['markdown', 'plaintext']}, 'signatureHelp': {'dynamicRegistration': True, 'signatureInformation': {'documentationFormat': ['markdown', 'plaintext'], 'parameterInformation': {'labelOffsetSupport': True}}}, 'definition': {'dynamicRegistration': True}, 'references': {'dynamicRegistration': True}, 'documentSymbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}, 'hierarchicalDocumentSymbolSupport': True}, 'publishDiagnostics': {'relatedInformation': True}}}, 'workspaceFolders': [{'uri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'name': 'rustdeck_phonebook'}]}
+(caused by LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly)
+INFO  2026-04-22 11:15:36,857 serena.task_executor:_process_task_queue:123 - Starting execution of Task-2:<lambda>
+INFO  2026-04-22 11:15:36,858 serena.task_executor:start:329 - Task-2:<lambda> starting ...
+ERROR 2026-04-22 11:15:36,858 serena.task_executor:__exit__:342 - Task-2:<lambda> failed after 0.000 seconds
+ERROR 2026-04-22 11:15:36,858 serena.task_executor:run_task:62 - Error during execution of Task-2:<lambda>: The language server manager is not initialized, indicating a problem during project initialisation.
+Failed to start 1 language server(s):
+python: Error processing request initialize with params:
+{'processId': 61016, 'rootPath': 'C:\\Coding\\WorkFolder\\rustdeck_phonebook', 'rootUri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'initializationOptions': {'exclude': ['**/__pycache__', '**/.venv', '**/.env', '**/build', '**/dist', '**/.pixi'], 'reportMissingImports': 'error'}, 'capabilities': {'workspace': {'workspaceEdit': {'documentChanges': True}, 'didChangeConfiguration': {'dynamicRegistration': True}, 'didChangeWatchedFiles': {'dynamicRegistration': True}, 'symbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}}, 'executeCommand': {'dynamicRegistration': True}}, 'textDocument': {'synchronization': {'dynamicRegistration': True, 'willSave': True, 'willSaveWaitUntil': True, 'didSave': True}, 'hover': {'dynamicRegistration': True, 'contentFormat': ['markdown', 'plaintext']}, 'signatureHelp': {'dynamicRegistration': True, 'signatureInformation': {'documentationFormat': ['markdown', 'plaintext'], 'parameterInformation': {'labelOffsetSupport': True}}}, 'definition': {'dynamicRegistration': True}, 'references': {'dynamicRegistration': True}, 'documentSymbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}, 'hierarchicalDocumentSymbolSupport': True}, 'publishDiagnostics': {'relatedInformation': True}}}, 'workspaceFolders': [{'uri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'name': 'rustdeck_phonebook'}]}
+(caused by LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly)
+For details, please check the logs. Unfortunately, logs are not available. We recommend enabling the web dashboard/logging in general.
+IMPORTANT: Stop, do not attempt workarounds. Inform the user and wait for further instructions before you continue!
+Traceback (most recent call last):
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 57, in run_task
+    result = self._function()
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\cli.py", line 944, in <lambda>
+    overview_data = agent.execute_task(lambda: overview_tool.get_symbol_overview(target_file))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\tools\symbol_tools.py", line 87, in get_symbol_overview
+    symbol_retriever = self.create_language_server_symbol_retriever()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\tools\tools_base.py", line 55, in create_language_server_symbol_retriever
+    return LanguageServerSymbolRetriever(self.project)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\symbol.py", line 576, in __init__
+    self._ls_manager: LanguageServerManager = project.get_language_server_manager_or_raise()
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\project.py", line 681, in get_language_server_manager_or_raise
+    raise Exception(msg.build())
+Exception: The language server manager is not initialized, indicating a problem during project initialisation.
+Failed to start 1 language server(s):
+python: Error processing request initialize with params:
+{'processId': 61016, 'rootPath': 'C:\\Coding\\WorkFolder\\rustdeck_phonebook', 'rootUri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'initializationOptions': {'exclude': ['**/__pycache__', '**/.venv', '**/.env', '**/build', '**/dist', '**/.pixi'], 'reportMissingImports': 'error'}, 'capabilities': {'workspace': {'workspaceEdit': {'documentChanges': True}, 'didChangeConfiguration': {'dynamicRegistration': True}, 'didChangeWatchedFiles': {'dynamicRegistration': True}, 'symbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}}, 'executeCommand': {'dynamicRegistration': True}}, 'textDocument': {'synchronization': {'dynamicRegistration': True, 'willSave': True, 'willSaveWaitUntil': True, 'didSave': True}, 'hover': {'dynamicRegistration': True, 'contentFormat': ['markdown', 'plaintext']}, 'signatureHelp': {'dynamicRegistration': True, 'signatureInformation': {'documentationFormat': ['markdown', 'plaintext'], 'parameterInformation': {'labelOffsetSupport': True}}}, 'definition': {'dynamicRegistration': True}, 'references': {'dynamicRegistration': True}, 'documentSymbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}, 'hierarchicalDocumentSymbolSupport': True}, 'publishDiagnostics': {'relatedInformation': True}}}, 'workspaceFolders': [{'uri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'name': 'rustdeck_phonebook'}]}
+(caused by LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly)
+For details, please check the logs. Unfortunately, logs are not available. We recommend enabling the web dashboard/logging in general.
+IMPORTANT: Stop, do not attempt workarounds. Inform the user and wait for further instructions before you continue!
+ERROR 2026-04-22 11:15:36,863 serena.cli:health_check:1018 - Health check failed with exception: The language server manager is not initialized, indicating a problem during project initialisation.
+Failed to start 1 language server(s):
+python: Error processing request initialize with params:
+{'processId': 61016, 'rootPath': 'C:\\Coding\\WorkFolder\\rustdeck_phonebook', 'rootUri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'initializationOptions': {'exclude': ['**/__pycache__', '**/.venv', '**/.env', '**/build', '**/dist', '**/.pixi'], 'reportMissingImports': 'error'}, 'capabilities': {'workspace': {'workspaceEdit': {'documentChanges': True}, 'didChangeConfiguration': {'dynamicRegistration': True}, 'didChangeWatchedFiles': {'dynamicRegistration': True}, 'symbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}}, 'executeCommand': {'dynamicRegistration': True}}, 'textDocument': {'synchronization': {'dynamicRegistration': True, 'willSave': True, 'willSaveWaitUntil': True, 'didSave': True}, 'hover': {'dynamicRegistration': True, 'contentFormat': ['markdown', 'plaintext']}, 'signatureHelp': {'dynamicRegistration': True, 'signatureInformation': {'documentationFormat': ['markdown', 'plaintext'], 'parameterInformation': {'labelOffsetSupport': True}}}, 'definition': {'dynamicRegistration': True}, 'references': {'dynamicRegistration': True}, 'documentSymbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}, 'hierarchicalDocumentSymbolSupport': True}, 'publishDiagnostics': {'relatedInformation': True}}}, 'workspaceFolders': [{'uri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'name': 'rustdeck_phonebook'}]}
+(caused by LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly)
+For details, please check the logs. Unfortunately, logs are not available. We recommend enabling the web dashboard/logging in general.
+IMPORTANT: Stop, do not attempt workarounds. Inform the user and wait for further instructions before you continue!
+Traceback (most recent call last):
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\cli.py", line 944, in health_check
+    overview_data = agent.execute_task(lambda: overview_tool.get_symbol_overview(target_file))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\agent.py", line 926, in execute_task
+    return self._task_executor.execute_task(task, name=name, logged=logged, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 209, in execute_task
+    return task_obj.result()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 85, in result
+    return self.future.result(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 57, in run_task
+    result = self._function()
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\cli.py", line 944, in <lambda>
+    overview_data = agent.execute_task(lambda: overview_tool.get_symbol_overview(target_file))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\tools\symbol_tools.py", line 87, in get_symbol_overview
+    symbol_retriever = self.create_language_server_symbol_retriever()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\tools\tools_base.py", line 55, in create_language_server_symbol_retriever
+    return LanguageServerSymbolRetriever(self.project)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\symbol.py", line 576, in __init__
+    self._ls_manager: LanguageServerManager = project.get_language_server_manager_or_raise()
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\folar\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\project.py", line 681, in get_language_server_manager_or_raise
+    raise Exception(msg.build())
+Exception: The language server manager is not initialized, indicating a problem during project initialisation.
+Failed to start 1 language server(s):
+python: Error processing request initialize with params:
+{'processId': 61016, 'rootPath': 'C:\\Coding\\WorkFolder\\rustdeck_phonebook', 'rootUri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'initializationOptions': {'exclude': ['**/__pycache__', '**/.venv', '**/.env', '**/build', '**/dist', '**/.pixi'], 'reportMissingImports': 'error'}, 'capabilities': {'workspace': {'workspaceEdit': {'documentChanges': True}, 'didChangeConfiguration': {'dynamicRegistration': True}, 'didChangeWatchedFiles': {'dynamicRegistration': True}, 'symbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}}, 'executeCommand': {'dynamicRegistration': True}}, 'textDocument': {'synchronization': {'dynamicRegistration': True, 'willSave': True, 'willSaveWaitUntil': True, 'didSave': True}, 'hover': {'dynamicRegistration': True, 'contentFormat': ['markdown', 'plaintext']}, 'signatureHelp': {'dynamicRegistration': True, 'signatureInformation': {'documentationFormat': ['markdown', 'plaintext'], 'parameterInformation': {'labelOffsetSupport': True}}}, 'definition': {'dynamicRegistration': True}, 'references': {'dynamicRegistration': True}, 'documentSymbol': {'dynamicRegistration': True, 'symbolKind': {'valueSet': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]}, 'hierarchicalDocumentSymbolSupport': True}, 'publishDiagnostics': {'relatedInformation': True}}}, 'workspaceFolders': [{'uri': 'file:///C:/Coding/WorkFolder/rustdeck_phonebook', 'name': 'rustdeck_phonebook'}]}
+(caused by LanguageServerTerminatedException: Language server stdout read process terminated unexpectedly)
+For details, please check the logs. Unfortunately, logs are not available. We recommend enabling the web dashboard/logging in general.
+IMPORTANT: Stop, do not attempt workarounds. Inform the user and wait for further instructions before you continue!

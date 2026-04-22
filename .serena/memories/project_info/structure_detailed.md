@@ -1,0 +1,23 @@
+Detailed structure:
+- src/phonebook/
+  - schemas.py: Main data models/schemas
+  - routes/schemas.py: Route-specific schemas
+  - main.py: Main application entry point
+  - database.py: Database configuration
+  - models.py: Database models
+  - crud.py: CRUD operations
+  - config.py: Configuration settings
+  - routes/: Directory containing route handlers
+    - export.py: Export functionality
+    - computers.py: Computer-related routes
+    - __init__.py: Route initialization
+  - templates/: HTML templates for frontend
+    - index.html
+    - base.html
+    - partials/: HTML partials
+      - computer_row.html
+      - computer_form.html
+      - computer_detail.html
+  - static/: Static files for frontend
+    - style.css
+    - app.js

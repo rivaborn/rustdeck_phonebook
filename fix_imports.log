@@ -1,0 +1,438 @@
+# fix_imports.py — advisory report
+
+Started:  2026-04-22 13:50:18
+Package:  C:\Coding\WorkFolder\rustdeck_phonebook\src\phonebook
+Model:    qwen3-coder:30b
+Endpoint: http://192.168.1.126:11434
+
+## 10 module(s) failed.
+
+### Summary
+- phonebook (src\phonebook\__init__.py): ModuleNotFoundError: No module named 'phonebook'
+- phonebook.config (src\phonebook\config.py): ModuleNotFoundError: No module named 'phonebook'
+- phonebook.crud (src\phonebook\crud.py): ModuleNotFoundError: No module named 'phonebook'
+- phonebook.database (src\phonebook\database.py): ModuleNotFoundError: No module named 'phonebook'
+- phonebook.main (src\phonebook\main.py): ModuleNotFoundError: No module named 'phonebook'
+- phonebook.models (src\phonebook\models.py): ModuleNotFoundError: No module named 'phonebook'
+- phonebook.routes (src\phonebook\routes\__init__.py): ModuleNotFoundError: No module named 'phonebook'
+- phonebook.routes.computers (src\phonebook\routes\computers.py): ModuleNotFoundError: No module named 'phonebook'
+- phonebook.routes.export (src\phonebook\routes\export.py): ModuleNotFoundError: No module named 'phonebook'
+- phonebook.schemas (src\phonebook\schemas.py): ModuleNotFoundError: No module named 'phonebook'
+
+### Full errors
+
+#### phonebook  (src\phonebook\__init__.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+#### phonebook.config  (src\phonebook\config.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+#### phonebook.crud  (src\phonebook\crud.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+#### phonebook.database  (src\phonebook\database.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+#### phonebook.main  (src\phonebook\main.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+#### phonebook.models  (src\phonebook\models.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+#### phonebook.routes  (src\phonebook\routes\__init__.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+#### phonebook.routes.computers  (src\phonebook\routes\computers.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+#### phonebook.routes.export  (src\phonebook\routes\export.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+#### phonebook.schemas  (src\phonebook\schemas.py)
+Related file: src\phonebook\__init__.py
+```
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'phonebook'
+```
+
+
+## Proposed fixes
+
+### [1/10] src\phonebook\__init__.py  (modules: phonebook)
+
+## Root cause
+The module cannot be imported because the package structure is incorrect - the `__init__.py` file is located in `src\phonebook\__init__.py` but Python expects it to be in the parent directory to make the `phonebook` package importable. The import paths in the `__init__.py` file are also incorrect, referencing `src.phonebook` instead of just `phonebook`.
+
+## Fix type
+WRONG_IMPORT
+
+## Action
+Move the `src\phonebook\__init__.py` file to `phonebook\__init__.py` (remove the `src` directory) and update the import paths in the `__init__.py` file to remove the `src.` prefix from all imports.
+
+## Confidence
+HIGH
+
+## Notes
+This is a common Python packaging mistake where the project structure doesn't match Python's import expectations. The user should also ensure they're running Python from the correct directory (likely the parent of the `src` directory) and that the `src` directory is in their Python path if they want to keep the current structure.
+
+---
+
+### [2/10] src\phonebook\config.py  (modules: phonebook.config)
+
+Related file: src\phonebook\__init__.py
+
+## Root cause
+The module cannot be imported because the package structure is incorrect - the `__init__.py` file is trying to import from `src.phonebook` but the package is installed as `phonebook` (without the `src` prefix). The import paths in `__init__.py` are inconsistent with the actual package layout.
+
+## Fix type
+WRONG_IMPORT
+
+## Action
+Edit `src\phonebook\__init__.py` to remove the `src.` prefix from all import paths:
+```python
+# Before:
+from .src.phonebook.config import Settings, get_settings
+from .src.phonebook.database import get_db, init_db
+from .src.phonebook.models import Base, Computer
+from .src.phonebook.crud import (
+    create_computer,
+    delete_computer,
+    get_all_computers,
+    get_computer,
+    search_computers,
+    update_computer
+)
+from .src.phonebook.schemas import ComputerCreate, ComputerOut, ComputerUpdate
+from .src.phonebook.main import app, create_app, lifespan
+
+# After:
+from .config import Settings, get_settings
+from .database import get_db, init_db
+from .models import Base, Computer
+from .crud import (
+    create_computer,
+    delete_computer,
+    get_all_computers,
+    get_computer,
+    search_computers,
+    update_computer
+)
+from .schemas import ComputerCreate, ComputerOut, ComputerUpdate
+from .main import app, create_app, lifespan
+```
+
+## Confidence
+HIGH
+
+## Notes
+This assumes the package is installed in development mode (`pip install -e .`) or that the `src` directory is in the Python path. If the package is not installed in development mode, the user may also need to ensure the `src` directory is in their PYTHONPATH or install the package using `pip install -e .` from the project root directory.
+
+---
+
+### [3/10] src\phonebook\crud.py  (modules: phonebook.crud)
+
+Related file: src\phonebook\__init__.py
+
+## Root cause
+The module cannot be imported because the package structure is incorrect - the `phonebook` package is being imported as if it's in the root directory, but it's actually inside a `src` directory. The import paths in `src/phonebook/__init__.py` are also incorrect, using `from .src.phonebook...` instead of `from .phonebook...`.
+
+## Fix type
+WRONG_IMPORT
+
+## Action
+Edit `src\phonebook\__init__.py` to fix import paths:
+- Change `from .src.phonebook.config import Settings, get_settings` to `from .config import Settings, get_settings`
+- Change `from .src.phonebook.database import get_db, init_db` to `from .database import get_db, init_db`
+- Change `from .src.phonebook.models import Base, Computer` to `from .models import Base, Computer`
+- Change `from .src.phonebook.crud import (...)` to `from .crud import (...)`
+- Change `from .src.phonebook.schemas import ComputerCreate, ComputerOut, ComputerUpdate` to `from .schemas import ComputerCreate, ComputerOut, ComputerUpdate`
+- Change `from .src.phonebook.main import app, create_app, lifespan` to `from .main import app, create_app, lifespan`
+
+## Confidence
+HIGH
+
+## Notes
+This assumes the package is being imported from a location where `src` is in the Python path. If the package is meant to be installed in development mode, the user should also ensure they're running `pip install -e .` from the project root directory. The current structure suggests this is a standard Python package layout where `src/` is the source directory and `phonebook/` is the actual package inside it.
+
+---
+
+### [4/10] src\phonebook\database.py  (modules: phonebook.database)
+
+Related file: src\phonebook\__init__.py
+
+## Root cause
+The import `from phonebook.config import get_settings` in `database.py` fails because Python cannot find the `phonebook` package when running from the command line. The `phonebook` package is not installed in the Python environment, and the import path assumes the package is available in the Python path.
+
+## Fix type
+MISSING_PACKAGE
+
+## Action
+Run `pip install -e .` from the root directory of the project (where the `setup.py` or `pyproject.toml` file is located) to install the package in development mode. This will make the `phonebook` package importable from anywhere in the Python environment.
+
+## Confidence
+HIGH
+
+## Notes
+This assumes the project has a proper `setup.py` or `pyproject.toml` file that defines the package structure. If the project is not structured as a proper Python package with a setup file, the user may need to add the `src` directory to their `PYTHONPATH` manually instead. The `-e` flag installs the package in "editable" mode, which means changes to the source code will be reflected immediately without reinstalling.
+
+---
+
+### [5/10] src\phonebook\main.py  (modules: phonebook.main)
+
+Related file: src\phonebook\__init__.py
+
+## Root cause
+The module cannot be imported because the Python path is not configured correctly to recognize the `phonebook` package, and there are circular import issues in the `__init__.py` file where it tries to import from itself.
+
+## Fix type
+WRONG_IMPORT
+
+## Action
+The user needs to run the application from the parent directory of `src` (e.g., `cd ..` if currently in `src/phonebook/`) and ensure the `src` directory is in the Python path, OR modify the import paths in `src/phonebook/__init__.py` to remove the circular reference by changing:
+```python
+from .src.phonebook.config import Settings, get_settings
+from .src.phonebook.database import get_db, init_db
+from .src.phonebook.models import Base, Computer
+from .src.phonebook.crud import (
+    create_computer,
+    delete_computer,
+    get_all_computers,
+    get_computer,
+    search_computers,
+    update_computer
+)
+from .src.phonebook.schemas import ComputerCreate, ComputerOut, ComputerUpdate
+from .src.phonebook.main import app, create_app, lifespan
+```
+to:
+```python
+from .config import Settings, get_settings
+from .database import get_db, init_db
+from .models import Base, Computer
+from .crud import (
+    create_computer,
+    delete_computer,
+    get_all_computers,
+    get_computer,
+    search_computers,
+    update_computer
+)
+from .schemas import ComputerCreate, ComputerOut, ComputerUpdate
+from .main import app, create_app, lifespan
+```
+
+## Confidence
+HIGH
+
+## Notes
+This fix assumes the project structure allows for relative imports within the package. If the project is meant to be installed as a package, the user should also ensure they have a proper `setup.py` or `pyproject.toml` file and install the package in development mode using `pip install -e .`.
+
+---
+
+### [6/10] src\phonebook\models.py  (modules: phonebook.models)
+
+Related file: src\phonebook\__init__.py
+
+## Root cause
+The import error occurs because the `phonebook` package is not installed in the Python environment, and the `src` directory is not in the Python path. The `__init__.py` file tries to import from `src.phonebook` which fails because `src` is not a recognized package.
+
+## Fix type
+MISSING_PACKAGE
+
+## Action
+Add the `src` directory to the Python path by running:
+```bash
+pip install -e .
+```
+in the directory containing the `setup.py` or `pyproject.toml` file. If no such file exists, create a minimal `setup.py` in the project root with:
+```python
+from setuptools import setup, find_packages
+
+setup(
+    name="phonebook",
+    version="0.1",
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
+)
+```
+
+## Confidence
+HIGH
+
+## Notes
+This assumes the project structure has a proper setup.py or pyproject.toml in the root directory. If the project is meant to be run as a module directly, the user might also need to ensure they're running Python from the correct directory or adjust their PYTHONPATH environment variable.
+
+---
+
+### [7/10] src\phonebook\routes\__init__.py  (modules: phonebook.routes)
+
+Related file: src\phonebook\__init__.py
+
+## Root cause
+The module cannot be imported because the Python path is not properly configured to recognize the `phonebook` package, and there's a circular import issue where `src/phonebook/__init__.py` tries to import from `src/phonebook/src/phonebook/...` which is incorrect path structure.
+
+## Fix type
+WRONG_IMPORT
+
+## Action
+Edit `src\phonebook\__init__.py` and fix the import paths to remove the incorrect `src/phonebook/src/phonebook/` prefix:
+
+**Before:**
+```python
+from .src.phonebook.config import Settings, get_settings
+from .src.phonebook.database import get_db, init_db
+from .src.phonebook.models import Base, Computer
+from .src.phonebook.crud import (
+    create_computer,
+    delete_computer,
+    get_all_computers,
+    get_computer,
+    search_computers,
+    update_computer
+)
+from .src.phonebook.schemas import ComputerCreate, ComputerOut, ComputerUpdate
+from .src.phonebook.main import app, create_app, lifespan
+```
+
+**After:**
+```python
+from .config import Settings, get_settings
+from .database import get_db, init_db
+from .models import Base, Computer
+from .crud import (
+    create_computer,
+    delete_computer,
+    get_all_computers,
+    get_computer,
+    search_computers,
+    update_computer
+)
+from .schemas import ComputerCreate, ComputerOut, ComputerUpdate
+from .main import app, create_app, lifespan
+```
+
+## Confidence
+HIGH
+
+## Notes
+This fix assumes the files `config.py`, `database.py`, `models.py`, `crud.py`, `schemas.py`, and `main.py` are located directly in the `src/phonebook/` directory. The original error suggests the package isn't being found at all, so this fix should resolve both the circular import issue and the module resolution problem. Make sure to run `pip install -e .` from the project root after making this change if this is a package installation scenario.
+
+---
+
+### [8/10] src\phonebook\routes\computers.py  (modules: phonebook.routes.computers)
+
+Related file: src\phonebook\__init__.py
+
+## Root cause
+The Python interpreter cannot find the `phonebook` package because the project is not installed in development mode, and the module path is incorrect in the import statements.
+
+## Fix type
+MISSING_PACKAGE
+
+## Action
+Run `pip install -e .` from the project root directory to install the package in development mode, which will make the `phonebook` package importable.
+
+## Confidence
+HIGH
+
+## Notes
+The `src/phonebook/__init__.py` file uses relative imports with `from .src.phonebook...` syntax, which indicates this is meant to be a proper Python package structure. The error occurs because the package isn't installed in development mode, so Python doesn't recognize `phonebook` as an importable module. Installing with `-e` flag (editable install) will resolve this issue.
+
+---
+
+### [9/10] src\phonebook\routes\export.py  (modules: phonebook.routes.export)
+
+Related file: src\phonebook\__init__.py
+
+## Root cause
+The module `phonebook.routes.export` cannot import from `phonebook` because the package is not installed in the Python environment, and the import path is incorrect. The `phonebook` package is not properly installed or available in the Python path.
+
+## Fix type
+MISSING_PACKAGE
+
+## Action
+Run `pip install -e .` from the root directory of the project (where the `setup.py` or `pyproject.toml` file is located) to install the package in development mode. This will make the `phonebook` package importable.
+
+## Confidence
+HIGH
+
+## Notes
+The error occurs because the package is not installed in the Python environment. The `-e` flag installs the package in "editable" mode, which allows changes to the source code to be reflected immediately without reinstalling. If there's no `setup.py` or `pyproject.toml` file in the project root, the user will need to create one or ensure the project root is in the Python path using `PYTHONPATH` or similar methods.
+
+---
+
+### [10/10] src\phonebook\schemas.py  (modules: phonebook.schemas)
+
+Related file: src\phonebook\__init__.py
+
+## Root cause
+The import `from phonebook.models import Computer` in `src\phonebook\schemas.py` fails because Python cannot find the `phonebook` package when running from an arbitrary directory. The `phonebook` package is not installed in the Python environment and is not in the current working directory.
+
+## Fix type
+MISSING_PACKAGE
+
+## Action
+The user should install the package in development mode using pip. Run the following command from the project root directory (the directory containing `src/`):
+
+```bash
+pip install -e .
+```
+
+This assumes there is a `setup.py` or `pyproject.toml` file in the project root that defines the package. If there is no such file, the user needs to create a minimal `setup.py` or `pyproject.toml` file in the project root that includes the `src` directory as a package source.
+
+## Confidence
+HIGH
+
+## Notes
+The error occurs because Python's import system cannot resolve `phonebook` as a package. Installing the package in development mode (`-e` flag) makes it importable from anywhere. If the project doesn't have a proper package setup file, that needs to be created first. The user should also ensure they're running the command from the correct project root directory.
+
+---
+
+## Done
+Diagnosed 10 scope(s) in 47.4s. Review proposed fixes in the log and implement manually.
