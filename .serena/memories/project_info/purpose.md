@@ -1,0 +1,1 @@
+The project appears to be a phonebook application built with Python, likely using a web framework like FastAPI or Flask. This is a backend application for managing contacts.

@@ -21652,3 +21652,2225 @@
 +```
 +
 +Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 08:37:44.578993
++Write tests for CSS static files into tests/test_static_css.py. The test file should verify that the CSS stylesheet at src/phonebook/static/style.css defines the correct custom properties, responsive table layout, tag styling, error message styling, modal overlay behavior, and that no external CSS frameworks are used. The tests must mock filesystem access and verify that the CSS content matches expected rules for both light and dark modes.
++
++The module under test is the CSS file at src/phonebook/static/style.css. The test file should import the CSS content and assert on the following behaviors:
++- CSS custom properties are defined at :root and overridden in @media (prefers-color-scheme: dark)
++- Responsive table layout uses data-label attributes and ::before pseudo-elements for mobile view
++- .tag class renders pill badges with proper styling
++- .field-error class displays red text for validation errors
++- Modal overlay has fixed positioning when containing content
++- No external CSS framework is used
++
++Use pytest conventions with fixtures like tmp_path for temporary file handling and monkeypatch for mocking filesystem operations. The tests must be runnable with `pytest` out of the box and should not perform real disk writes or network calls.
++
++The CSS file is located at src/phonebook/static/style.css and contains styling for the application's interface including responsive design, dark mode support, and UI components. The tests should verify that all expected CSS rules are present and correctly defined.
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/routes/schemas.py
++- class ComputerBase
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable username
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++---
++
++## Planned Upcoming Files
++
++These files have not been generated yet but will be produced by
++later steps. If you need to import from one, use the file name as
++your guide and align your expected class/function names with the
++step title (e.g. 'Step 18 - PowerTab implementation' -> class
++`PowerTab` in power_tab.py).
++
++- Step 29 - Step 29 -- JavaScript tests
++    - tests/test_app_js.py
++- Step 30 - Step 30 -- Seed data script
++    - seed/seed_data.py
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 08:37:44.589764
++Write tests for CSS static files into tests/test_static_css.py. The test file should verify that the CSS stylesheet at src/phonebook/static/style.css defines the correct custom properties, responsive table layout, tag styling, error message styling, modal overlay behavior, and that no external CSS frameworks are used. The tests must mock filesystem access and verify that the CSS content matches expected rules for both light and dark modes.
++
++The module under test is the CSS file at src/phonebook/static/style.css. The test file should import the CSS content and assert on the following behaviors:
++- CSS custom properties are defined at :root and overridden in @media (prefers-color-scheme: dark)
++- Responsive table layout uses data-label attributes and ::before pseudo-elements for mobile view
++- .tag class renders pill badges with proper styling
++- .field-error class displays red text for validation errors
++- Modal overlay has fixed positioning when containing content
++- No external CSS framework is used
++
++Use pytest conventions with fixtures like tmp_path for temporary file handling and monkeypatch for mocking filesystem operations. The tests must be runnable with `pytest` out of the box and should not perform real disk writes or network calls.
++
++The CSS file is located at src/phonebook/static/style.css and contains styling for the application's interface including responsive design, dark mode support, and UI components. The tests should verify that all expected CSS rules are present and correctly defined.
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/routes/schemas.py
++- class ComputerBase
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable username
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++---
++
++## Planned Upcoming Files
++
++These files have not been generated yet but will be produced by
++later steps. If you need to import from one, use the file name as
++your guide and align your expected class/function names with the
++step title (e.g. 'Step 18 - PowerTab implementation' -> class
++`PowerTab` in power_tab.py).
++
++- Step 29 - Step 29 -- JavaScript tests
++    - tests/test_app_js.py
++- Step 30 - Step 30 -- Seed data script
++    - seed/seed_data.py
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:07:52.912927
++Write tests for CSS static files into tests/test_static_css.py. The test file should verify that the CSS stylesheet at src/phonebook/static/style.css defines the correct custom properties, responsive table layout, tag styling, error message styling, modal overlay behavior, and that no external CSS frameworks are used. The tests must mock filesystem access and verify that the CSS content matches expected rules for both light and dark modes.
++
++The module under test is the CSS file at src/phonebook/static/style.css. The test file should import the CSS content and assert on the following behaviors:
++- CSS custom properties are defined at :root and overridden in @media (prefers-color-scheme: dark)
++- Responsive table layout uses data-label attributes and ::before pseudo-elements for mobile view
++- .tag class renders pill badges with proper styling
++- .field-error class displays red text for validation errors
++- Modal overlay has fixed positioning when containing content
++- No external CSS framework is used
++
++Use pytest conventions with fixtures like tmp_path for temporary file handling and monkeypatch for mocking filesystem operations. The tests must be runnable with `pytest` out of the box and should not perform real disk writes or network calls.
++
++The CSS file is located at src/phonebook/static/style.css and contains styling for the application's interface including responsive design, dark mode support, and UI components. The tests should verify that all expected CSS rules are present and correctly defined.
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++---
++
++## Planned Upcoming Files
++
++These files have not been generated yet but will be produced by
++later steps. If you need to import from one, use the file name as
++your guide and align your expected class/function names with the
++step title (e.g. 'Step 18 - PowerTab implementation' -> class
++`PowerTab` in power_tab.py).
++
++- Step 29 - Step 29 -- JavaScript tests
++    - tests/test_app_js.py
++- Step 30 - Step 30 -- Seed data script
++    - seed/seed_data.py
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:07:52.921037
++Write tests for CSS static files into tests/test_static_css.py. The test file should verify that the CSS stylesheet at src/phonebook/static/style.css defines the correct custom properties, responsive table layout, tag styling, error message styling, modal overlay behavior, and that no external CSS frameworks are used. The tests must mock filesystem access and verify that the CSS content matches expected rules for both light and dark modes.
++
++The module under test is the CSS file at src/phonebook/static/style.css. The test file should import the CSS content and assert on the following behaviors:
++- CSS custom properties are defined at :root and overridden in @media (prefers-color-scheme: dark)
++- Responsive table layout uses data-label attributes and ::before pseudo-elements for mobile view
++- .tag class renders pill badges with proper styling
++- .field-error class displays red text for validation errors
++- Modal overlay has fixed positioning when containing content
++- No external CSS framework is used
++
++Use pytest conventions with fixtures like tmp_path for temporary file handling and monkeypatch for mocking filesystem operations. The tests must be runnable with `pytest` out of the box and should not perform real disk writes or network calls.
++
++The CSS file is located at src/phonebook/static/style.css and contains styling for the application's interface including responsive design, dark mode support, and UI components. The tests should verify that all expected CSS rules are present and correctly defined.
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++---
++
++## Planned Upcoming Files
++
++These files have not been generated yet but will be produced by
++later steps. If you need to import from one, use the file name as
++your guide and align your expected class/function names with the
++step title (e.g. 'Step 18 - PowerTab implementation' -> class
++`PowerTab` in power_tab.py).
++
++- Step 29 - Step 29 -- JavaScript tests
++    - tests/test_app_js.py
++- Step 30 - Step 30 -- Seed data script
++    - seed/seed_data.py
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:14:21.748882
++Write tests for CSS static files into tests/test_static_css.py. The test file should verify that the CSS stylesheet at src/phonebook/static/style.css defines the correct custom properties, responsive table layout, tag styling, error message styling, modal overlay behavior, and that no external CSS frameworks are used. The tests must mock filesystem access and verify that the CSS content matches expected rules for both light and dark modes.
++
++The module under test is the CSS file at src/phonebook/static/style.css. The test file should import the CSS content and assert on the following behaviors:
++- CSS custom properties are defined at :root and overridden in @media (prefers-color-scheme: dark)
++- Responsive table layout uses data-label attributes and ::before pseudo-elements for mobile view
++- .tag class renders pill badges with proper styling
++- .field-error class displays red text for validation errors
++- Modal overlay has fixed positioning when containing content
++- No external CSS framework is used
++
++Use pytest conventions with fixtures like tmp_path for temporary file handling and monkeypatch for mocking filesystem operations. The tests must be runnable with `pytest` out of the box and should not perform real disk writes or network calls.
++
++The CSS file is located at src/phonebook/static/style.css and contains styling for the application's interface including responsive design, dark mode support, and UI components. The tests should verify that all expected CSS rules are present and correctly defined.
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:14:21.760974
++Write tests for CSS static files into tests/test_static_css.py. The test file should verify that the CSS stylesheet at src/phonebook/static/style.css defines the correct custom properties, responsive table layout, tag styling, error message styling, modal overlay behavior, and that no external CSS frameworks are used. The tests must mock filesystem access and verify that the CSS content matches expected rules for both light and dark modes.
++
++The module under test is the CSS file at src/phonebook/static/style.css. The test file should import the CSS content and assert on the following behaviors:
++- CSS custom properties are defined at :root and overridden in @media (prefers-color-scheme: dark)
++- Responsive table layout uses data-label attributes and ::before pseudo-elements for mobile view
++- .tag class renders pill badges with proper styling
++- .field-error class displays red text for validation errors
++- Modal overlay has fixed positioning when containing content
++- No external CSS framework is used
++
++Use pytest conventions with fixtures like tmp_path for temporary file handling and monkeypatch for mocking filesystem operations. The tests must be runnable with `pytest` out of the box and should not perform real disk writes or network calls.
++
++The CSS file is located at src/phonebook/static/style.css and contains styling for the application's interface including responsive design, dark mode support, and UI components. The tests should verify that all expected CSS rules are present and correctly defined.
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:20:15.905829
++Write tests for CSS static files into tests/test_static_css.py. The test file should verify that the CSS stylesheet at src/phonebook/static/style.css defines the correct custom properties, responsive table layout, tag styling, error message styling, modal overlay behavior, and that no external CSS frameworks are used. The tests must mock filesystem access and verify that the CSS content matches expected rules for both light and dark modes.
++
++The module under test is the CSS file at src/phonebook/static/style.css. The test file should import the CSS content and assert on the following behaviors:
++- CSS custom properties are defined at :root and overridden in @media (prefers-color-scheme: dark)
++- Responsive table layout uses data-label attributes and ::before pseudo-elements for mobile view
++- .tag class renders pill badges with proper styling
++- .field-error class displays red text for validation errors
++- Modal overlay has fixed positioning when containing content
++- No external CSS framework is used
++
++Use pytest conventions with fixtures like tmp_path for temporary file handling and monkeypatch for mocking filesystem operations. The tests must be runnable with `pytest` out of the box and should not perform real disk writes or network calls.
++
++The CSS file is located at src/phonebook/static/style.css and contains styling for the application's interface including responsive design, dark mode support, and UI components. The tests should verify that all expected CSS rules are present and correctly defined.
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++---
++
++## Planned Upcoming Files
++
++These files have not been generated yet but will be produced by
++later steps. If you need to import from one, use the file name as
++your guide and align your expected class/function names with the
++step title (e.g. 'Step 18 - PowerTab implementation' -> class
++`PowerTab` in power_tab.py).
++
++- Step 29 - Step 29 -- JavaScript tests
++    - tests/test_app_js.py
++- Step 30 - Step 30 -- Seed data script
++    - seed/seed_data.py
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:20:15.914101
++Write tests for CSS static files into tests/test_static_css.py. The test file should verify that the CSS stylesheet at src/phonebook/static/style.css defines the correct custom properties, responsive table layout, tag styling, error message styling, modal overlay behavior, and that no external CSS frameworks are used. The tests must mock filesystem access and verify that the CSS content matches expected rules for both light and dark modes.
++
++The module under test is the CSS file at src/phonebook/static/style.css. The test file should import the CSS content and assert on the following behaviors:
++- CSS custom properties are defined at :root and overridden in @media (prefers-color-scheme: dark)
++- Responsive table layout uses data-label attributes and ::before pseudo-elements for mobile view
++- .tag class renders pill badges with proper styling
++- .field-error class displays red text for validation errors
++- Modal overlay has fixed positioning when containing content
++- No external CSS framework is used
++
++Use pytest conventions with fixtures like tmp_path for temporary file handling and monkeypatch for mocking filesystem operations. The tests must be runnable with `pytest` out of the box and should not perform real disk writes or network calls.
++
++The CSS file is located at src/phonebook/static/style.css and contains styling for the application's interface including responsive design, dark mode support, and UI components. The tests should verify that all expected CSS rules are present and correctly defined.
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++---
++
++## Planned Upcoming Files
++
++These files have not been generated yet but will be produced by
++later steps. If you need to import from one, use the file name as
++your guide and align your expected class/function names with the
++step title (e.g. 'Step 18 - PowerTab implementation' -> class
++`PowerTab` in power_tab.py).
++
++- Step 29 - Step 29 -- JavaScript tests
++    - tests/test_app_js.py
++- Step 30 - Step 30 -- Seed data script
++    - seed/seed_data.py
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:49:23.310910
++"""
++Test the JavaScript functions in src/phonebook/static/app.js.
++
++The file contains exactly two functions:
++1. `copyToClipboard(text)` — copies the provided text to the clipboard and shows a brief "Copied!" tooltip.
++2. `confirmDelete(event, form)` — this function is not needed because HTMX handles `hx-confirm` natively; it may be omitted.
++
++Test file: tests/test_app_js.py
++"""
++import pytest
++from unittest.mock import AsyncMock, MagicMock, patch
++from pytest import fixture
++
++# Import the module under test from its production location
++# Note: This is a Python test file, but we're testing JavaScript code.
++# The actual JavaScript code is in src/phonebook/static/app.js.
++# We'll test the behavior by mocking the browser APIs.
++
++def test_copy_to_clipboard_calls_write_text(monkeypatch):
++    """Test that copyToClipboard calls navigator.clipboard.writeText with correct text."""
++    # Mock the clipboard API
++    mock_clipboard = AsyncMock()
++    mock_navigator = MagicMock()
++    mock_navigator.clipboard = mock_clipboard
++    monkeypatch.setattr("js.document", MagicMock())
++    monkeypatch.setattr("js.navigator", mock_navigator)
++
++    # Import the JavaScript function (this would normally be done via a JS testing framework)
++    # For now, we'll simulate the behavior by directly testing the mock setup
++    # Since we're in Python, we'll just verify the mock setup is correct
++
++    # This test verifies that the clipboard API is properly mocked
++    assert hasattr(mock_navigator, 'clipboard')
++    assert hasattr(mock_navigator.clipboard, 'writeText')
++
++def test_copy_to_clipboard_shows_tooltip(monkeypatch):
++    """Test that copyToClipboard shows a tooltip briefly after copying."""
++    # Mock the DOM and clipboard API
++    mock_clipboard = AsyncMock()
++    mock_navigator = MagicMock()
++    mock_navigator.clipboard = mock_clipboard
++    monkeypatch.setattr("js.navigator", mock_navigator)
++
++    # Mock document methods
++    mock_document = MagicMock()
++    monkeypatch.setattr("js.document", mock_document)
++
++    # This test verifies that the tooltip behavior can be mocked
++    # In a real JS environment, this would involve DOM manipulation
++    assert hasattr(mock_document, 'createElement') or hasattr(mock_document, 'getElementById')
++
++def test_confirm_delete_not_defined(monkeypatch):
++    """Test that confirmDelete is not defined in the file (as per spec)."""
++    # Since we're testing JavaScript behavior in Python, we'll check that
++    # the file only contains the expected functions
++    # This is a placeholder test - in a real JS test environment, we'd check
++    # the actual source code of app.js to ensure confirmDelete is not present
++    pass
++
++def test_app_js_contains_only_expected_functions():
++    """Test that the app.js file contains exactly the two specified functions."""
++    # This test would normally read the actual file content
++    # For now, we're just ensuring the test structure is correct
++    pass
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++---
++
++## Planned Upcoming Files
++
++These files have not been generated yet but will be produced by
++later steps. If you need to import from one, use the file name as
++your guide and align your expected class/function names with the
++step title (e.g. 'Step 18 - PowerTab implementation' -> class
++`PowerTab` in power_tab.py).
++
++- Step 30 - Step 30 -- Seed data script
++    - seed/seed_data.py
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:49:23.321711
++"""
++Test the JavaScript functions in src/phonebook/static/app.js.
++
++The file contains exactly two functions:
++1. `copyToClipboard(text)` — copies the provided text to the clipboard and shows a brief "Copied!" tooltip.
++2. `confirmDelete(event, form)` — this function is not needed because HTMX handles `hx-confirm` natively; it may be omitted.
++
++Test file: tests/test_app_js.py
++"""
++import pytest
++from unittest.mock import AsyncMock, MagicMock, patch
++from pytest import fixture
++
++# Import the module under test from its production location
++# Note: This is a Python test file, but we're testing JavaScript code.
++# The actual JavaScript code is in src/phonebook/static/app.js.
++# We'll test the behavior by mocking the browser APIs.
++
++def test_copy_to_clipboard_calls_write_text(monkeypatch):
++    """Test that copyToClipboard calls navigator.clipboard.writeText with correct text."""
++    # Mock the clipboard API
++    mock_clipboard = AsyncMock()
++    mock_navigator = MagicMock()
++    mock_navigator.clipboard = mock_clipboard
++    monkeypatch.setattr("js.document", MagicMock())
++    monkeypatch.setattr("js.navigator", mock_navigator)
++
++    # Import the JavaScript function (this would normally be done via a JS testing framework)
++    # For now, we'll simulate the behavior by directly testing the mock setup
++    # Since we're in Python, we'll just verify the mock setup is correct
++
++    # This test verifies that the clipboard API is properly mocked
++    assert hasattr(mock_navigator, 'clipboard')
++    assert hasattr(mock_navigator.clipboard, 'writeText')
++
++def test_copy_to_clipboard_shows_tooltip(monkeypatch):
++    """Test that copyToClipboard shows a tooltip briefly after copying."""
++    # Mock the DOM and clipboard API
++    mock_clipboard = AsyncMock()
++    mock_navigator = MagicMock()
++    mock_navigator.clipboard = mock_clipboard
++    monkeypatch.setattr("js.navigator", mock_navigator)
++
++    # Mock document methods
++    mock_document = MagicMock()
++    monkeypatch.setattr("js.document", mock_document)
++
++    # This test verifies that the tooltip behavior can be mocked
++    # In a real JS environment, this would involve DOM manipulation
++    assert hasattr(mock_document, 'createElement') or hasattr(mock_document, 'getElementById')
++
++def test_confirm_delete_not_defined(monkeypatch):
++    """Test that confirmDelete is not defined in the file (as per spec)."""
++    # Since we're testing JavaScript behavior in Python, we'll check that
++    # the file only contains the expected functions
++    # This is a placeholder test - in a real JS test environment, we'd check
++    # the actual source code of app.js to ensure confirmDelete is not present
++    pass
++
++def test_app_js_contains_only_expected_functions():
++    """Test that the app.js file contains exactly the two specified functions."""
++    # This test would normally read the actual file content
++    # For now, we're just ensuring the test structure is correct
++    pass
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++---
++
++## Planned Upcoming Files
++
++These files have not been generated yet but will be produced by
++later steps. If you need to import from one, use the file name as
++your guide and align your expected class/function names with the
++step title (e.g. 'Step 18 - PowerTab implementation' -> class
++`PowerTab` in power_tab.py).
++
++- Step 30 - Step 30 -- Seed data script
++    - seed/seed_data.py
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:49:52.306517
++"""
++Seed data script for the RustDesk Phone Book application.
++
++This script populates the database with sample computer records for testing
++and demonstration purposes. It is idempotent and will skip records if a
++rustdesk_id already exists.
++"""
++
++from phonebook.database import SessionLocal
++from phonebook.crud import create_computer
++from phonebook.schemas import ComputerCreate
++from sqlalchemy.exc import IntegrityError
++
++def seed_sample_data() -> None:
++    """Seed the database with 5 sample computer records."""
++    # Initialize database session
++    db = SessionLocal()
++    
++    # Define sample computer data
++    sample_computers = [
++        ComputerCreate(
++            friendly_name="Main Office Desktop",
++            rustdesk_id="123456789",
++            hostname="main-desktop",
++            local_ip="192.168.1.100",
++            operating_system="Ubuntu 22.04 LTS",
++            username="john.doe",
++            location="Main Office",
++            notes="Primary workstation for office work",
++            tags="desktop,office,ubuntu"
++        ),
++        ComputerCreate(
++            friendly_name="Development Laptop",
++            rustdesk_id="987654321",
++            hostname="dev-laptop",
++            local_ip="10.0.0.50",
++            operating_system="Windows 11 Pro",
++            username="jane.smith",
++            location="Development Team",
++            notes="Used for coding and testing",
++            tags="laptop,development,win11"
++        ),
++        ComputerCreate(
++            friendly_name="Server Room VM",
++            rustdesk_id="555555555",
++            hostname="server-vm",
++            local_ip="172.16.0.10",
++            operating_system="CentOS 8",
++            username="admin",
++            location="Server Room",
++            notes="Virtual machine for testing",
++            tags="server,vm,centos"
++        ),
++        ComputerCreate(
++            friendly_name="Conference Room Display",
++            rustdesk_id="111111111",
++            hostname="conference-display",
++            local_ip="192.168.2.200",
++            operating_system="Windows 10",
++            username="meeting",
++            location="Conference Room",
++            notes="Display for presentations",
++            tags="display,conference,win10"
++        ),
++        ComputerCreate(
++            friendly_name="Lab Workstation",
++            rustdesk_id="222222222",
++            hostname="lab-workstation",
++            local_ip="10.10.10.10",
++            operating_system="Ubuntu 20.04",
++            username="lab-user",
++            location="Research Lab",
++            notes="For experimental setups",
++            tags="lab,ubuntu,experimental"
++        )
++    ]
++    
++    try:
++        # Create each sample computer
++        for computer_data in sample_computers:
++            try:
++                create_computer(db, computer_data)
++            except IntegrityError:
++                # Skip if rustdesk_id already exists
++                print(f"Skipping computer with rustdesk_id {computer_data.rustdesk_id} (already exists)")
++                db.rollback()
++    finally:
++        # Close the database session
++        db.close()
++
++if __name__ == "__main__":
++    seed_sample_data()
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
+
+# 2026-04-22 13:49:52.315613
++"""
++Seed data script for the RustDesk Phone Book application.
++
++This script populates the database with sample computer records for testing
++and demonstration purposes. It is idempotent and will skip records if a
++rustdesk_id already exists.
++"""
++
++from phonebook.database import SessionLocal
++from phonebook.crud import create_computer
++from phonebook.schemas import ComputerCreate
++from sqlalchemy.exc import IntegrityError
++
++def seed_sample_data() -> None:
++    """Seed the database with 5 sample computer records."""
++    # Initialize database session
++    db = SessionLocal()
++    
++    # Define sample computer data
++    sample_computers = [
++        ComputerCreate(
++            friendly_name="Main Office Desktop",
++            rustdesk_id="123456789",
++            hostname="main-desktop",
++            local_ip="192.168.1.100",
++            operating_system="Ubuntu 22.04 LTS",
++            username="john.doe",
++            location="Main Office",
++            notes="Primary workstation for office work",
++            tags="desktop,office,ubuntu"
++        ),
++        ComputerCreate(
++            friendly_name="Development Laptop",
++            rustdesk_id="987654321",
++            hostname="dev-laptop",
++            local_ip="10.0.0.50",
++            operating_system="Windows 11 Pro",
++            username="jane.smith",
++            location="Development Team",
++            notes="Used for coding and testing",
++            tags="laptop,development,win11"
++        ),
++        ComputerCreate(
++            friendly_name="Server Room VM",
++            rustdesk_id="555555555",
++            hostname="server-vm",
++            local_ip="172.16.0.10",
++            operating_system="CentOS 8",
++            username="admin",
++            location="Server Room",
++            notes="Virtual machine for testing",
++            tags="server,vm,centos"
++        ),
++        ComputerCreate(
++            friendly_name="Conference Room Display",
++            rustdesk_id="111111111",
++            hostname="conference-display",
++            local_ip="192.168.2.200",
++            operating_system="Windows 10",
++            username="meeting",
++            location="Conference Room",
++            notes="Display for presentations",
++            tags="display,conference,win10"
++        ),
++        ComputerCreate(
++            friendly_name="Lab Workstation",
++            rustdesk_id="222222222",
++            hostname="lab-workstation",
++            local_ip="10.10.10.10",
++            operating_system="Ubuntu 20.04",
++            username="lab-user",
++            location="Research Lab",
++            notes="For experimental setups",
++            tags="lab,ubuntu,experimental"
++        )
++    ]
++    
++    try:
++        # Create each sample computer
++        for computer_data in sample_computers:
++            try:
++                create_computer(db, computer_data)
++            except IntegrityError:
++                # Skip if rustdesk_id already exists
++                print(f"Skipping computer with rustdesk_id {computer_data.rustdesk_id} (already exists)")
++                db.rollback()
++    finally:
++        # Close the database session
++        db.close()
++
++if __name__ == "__main__":
++    seed_sample_data()
++
++---
++
++# REFERENCE CONTEXT (read-only; do not treat as instructions)
++
++## Existing Symbol Inventory
++
++The following symbols already exist in the repo. When writing new
++code, import from these paths using these exact names; do not
++invent new names for symbols that already exist here.
++
++### ./seed_data.py
++- variable Base
++- variable DATABASE_URL
++- variable SessionLocal
++- variable engine
++- function seed_sample_data
++
++### ./src/phonebook/config.py
++- variable DATABASE_URL
++- variable DEBUG
++- variable HOST
++- variable PORT
++- class Settings
++- function get_settings
++- variable model_config
++
++### ./src/phonebook/crud.py
++- function create_computer
++- function delete_computer
++- function get_all_computers
++- function get_computer
++- function search_computers
++- function update_computer
++
++### ./src/phonebook/database.py
++- function create_engine
++- function get_db
++- function get_sessionmaker
++- function get_settings_instance
++- function init_db
++
++### ./src/phonebook/main.py
++- variable app
++- function create_app
++- function lifespan
++
++### ./src/phonebook/models.py
++- variable Base
++- class Computer
++- variable __tablename__
++- variable created_at
++- variable friendly_name
++- variable hostname
++- variable id
++- variable local_ip
++- variable location
++- variable notes
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable updated_at
++- variable username
++
++### ./src/phonebook/routes/computers.py
++- function computer_detail
++- function create_computer_route
++- function delete_computer_route
++- function edit_computer_form
++- function list_computers
++- function new_computer_form
++- variable router
++- function search_computers_route
++- variable templates
++- function update_computer_route
++
++### ./src/phonebook/routes/export.py
++- function export_csv
++- function export_json
++
++### ./src/phonebook/schemas.py
++- class ComputerCreate
++- class ComputerOut
++- class ComputerUpdate
++- class Config
++- function casual_greeting
++- variable friendly_name
++- variable from_attributes
++- variable hostname
++- variable hostname
++- variable hostname
++- variable local_ip
++- variable local_ip
++- variable local_ip
++- variable location
++- variable location
++- variable location
++- variable notes
++- variable notes
++- variable notes
++- variable operating_system
++- variable operating_system
++- variable operating_system
++- variable rustdesk_id
++- variable tags
++- variable tags
++- variable tags
++- variable username
++- variable username
++- variable username
++
++### ./src/phonebook/static/app.js
++- function copyToClipboard
++
++### ./src/phonebook/static/style.css
++- class .btn
++- class .btn
++- class .btn-danger
++- class .btn-danger:hover
++- class .btn-primary
++- class .btn-primary:hover
++- class .btn-success
++- class .btn-success:hover
++- class .btn:hover
++- class .container
++- class .container
++- class .copy-btn
++- class .copy-btn:hover
++- class .detail-list
++- class .field-error
++- class .form-control
++- class .form-control
++- class .form-control:focus
++- class .modal
++- class .modal-body
++- class .modal-body
++- class .modal-content
++- class .modal-content
++- class .modal-footer
++- class .modal-footer
++- class .modal-header
++- class .modal-header
++- class .modal-title
++- class .tag
++
++
++---
++
++# OUTPUT FORMAT (required by aider --edit-format whole)
++
++Reply with one code block per file you are creating or rewriting. Each block MUST be preceded by the file's path on its own line — no bullet, no comment prefix, no quoting — then an opening language-tagged fence, then the COMPLETE file contents, then a closing fence.
++
++Example for a JavaScript file:
++
++src/phonebook/static/app.js
++```javascript
++// complete file contents go here
++```
++
++Do NOT start your reply with `/**`, `#`, `//`, `<!--`, `/*`, or any other comment syntax: aider reads the first non-empty line as a filename, and if that line is a comment it writes an empty file. The filename line comes first; the code comes second.
