@@ -1,0 +1,15 @@
+[Unit]
+Description=RustDesk Phone Book web application
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/rust_phonebook
+EnvironmentFile=/home/ubuntu/rust_phonebook/.env
+ExecStart=/home/ubuntu/rust_phonebook/venv/bin/python -m phonebook.main
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,22 @@
+<tr>
+  <td data-label="Friendly Name">
+    <span hx-get="/computers/{{ computer.id }}" hx-target="#modal" hx-swap="innerHTML" class="clickable">{{ computer.friendly_name or 'Unnamed Computer' }}</span>
+  </td>
+  <td data-label="RustDesk ID">{{ computer.rustdesk_id }}</td>
+  <td data-label="OS">{{ computer.operating_system or 'N/A' }}</td>
+  <td data-label="Location">{{ computer.location or 'N/A' }}</td>
+  <td data-label="Tags">
+    {% if computer.tags %}
+      {% for tag in computer.tags.split(',') %}
+        <span class="tag">{{ tag.strip() }}</span>
+      {% endfor %}
+    {% else %}
+      N/A
+    {% endif %}
+  </td>
+  <td data-label="Updated">{{ computer.updated_at }}</td>
+  <td>
+    <button hx-delete="/computers/{{ computer.id }}" hx-confirm="Are you sure you want to delete this computer?" hx-target="closest tr" hx-swap="outerHTML" class="btn btn-danger">Delete</button>
+    <button hx-get="/computers/{{ computer.id }}/edit" hx-target="#modal" class="btn btn-primary">Edit</button>
+  </td>
+</tr>

@@ -1,0 +1,41 @@
+============================================================
+  Stage 4 - Run Aider (execute aidercommands.md)
+============================================================
+  Invoking: C:\Python314\python.exe C:\Coding\LocalLLM_Pipeline\LocalLLMCoding\run_aider.py C:\Coding\rust_phonebook\LocalLLMCodePrompts\aidercommands.md (cwd=C:\Coding\rust_phonebook)
+  Stage 4 failed (exit 1)
+============================================================
+  Stage 4 - Run Aider (execute aidercommands.md)
+============================================================
+  Invoking: C:\Python314\python.exe C:\Coding\LocalLLM_Pipeline\LocalLLMCoding\run_aider.py C:\Coding\rust_phonebook\LocalLLMCodePrompts\aidercommands.md (cwd=C:\Coding\rust_phonebook)
+  Stage 4 failed (exit 1)
+============================================================
+  Stage 4 - Run Aider (execute aidercommands.md)
+============================================================
+  Invoking: C:\Python314\python.exe C:\Coding\LocalLLM_Pipeline\LocalLLMCoding\run_aider.py C:\Coding\rust_phonebook\LocalLLMCodePrompts\aidercommands.md (cwd=C:\Coding\rust_phonebook)
+  Stage 4 failed (exit 1)
+============================================================
+  Stage 4 - Run Aider (execute aidercommands.md)
+============================================================
+  Invoking: C:\Python314\python.exe C:\Coding\LocalLLM_Pipeline\LocalLLMCoding\run_aider.py C:\Coding\rust_phonebook\LocalLLMCodePrompts\aidercommands.md (cwd=C:\Coding\rust_phonebook)
+============================================================
+  Stage 4 - Run Aider (execute aidercommands.md)
+============================================================
+  Invoking: C:\Python314\python.exe C:\Coding\LocalLLM_Pipeline\LocalLLMCoding\run_aider.py C:\Coding\rust_phonebook\LocalLLMCodePrompts\aidercommands.md (cwd=C:\Coding\rust_phonebook)
+============================================================
+  Stage 4 - Run Aider (execute aidercommands.md)
+============================================================
+  Invoking: C:\Python314\python.exe C:\Coding\LocalLLM_Pipeline\LocalLLMCoding\run_aider.py C:\Coding\rust_phonebook\LocalLLMCodePrompts\aidercommands.md (cwd=C:\Coding\rust_phonebook)
+  Stage 4 failed (exit 1)
+============================================================
+  Stage 4 - Run Aider (execute aidercommands.md)
+============================================================
+  Invoking: C:\Python314\python.exe C:\Coding\LocalLLM_Pipeline\LocalLLMCoding\run_aider.py C:\Coding\rust_phonebook\LocalLLMCodePrompts\aidercommands.md --from-step 21 (cwd=C:\Coding\rust_phonebook)
+  Stage 4 failed (exit 1)
+============================================================
+  Stage 4 - Run Aider (execute aidercommands.md)
+============================================================
+  Invoking: C:\Python314\python.exe C:\Coding\LocalLLM_Pipeline\LocalLLMCoding\run_aider.py C:\Coding\rust_phonebook\LocalLLMCodePrompts\aidercommands.md --from-step 22 (cwd=C:\Coding\rust_phonebook)
+============================================================
+  Stage 4 - Run Aider (execute aidercommands.md)
+============================================================
+  Invoking: C:\Python314\python.exe C:\Coding\LocalLLM_Pipeline\LocalLLMCoding\run_aider.py C:\Coding\rust_phonebook\LocalLLMCodePrompts\aidercommands.md --from-step 22 (cwd=C:\Coding\rust_phonebook)

@@ -1,0 +1,123 @@
+============================================================
+  Stage 2 - Generate Architecture Plan
+============================================================
+  Stage 2a: Generating section plan...
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3388s] - (22:10:55)
+  Section plan saved to .section_plan.md
+  Stage 2b: Generating 39 section(s)...
+    Section 1/39 - Project Structure
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:12:18)
+    Section 1/39 - done -> appended to Architecture Plan.md
+    Section 2/39 - Data Model
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:13:02)
+    Section 2/39 - done -> appended to Architecture Plan.md
+    Section 3/39 - Module: src/phonebook/__init__.py
+    Section 3/39 - done (canned __init__.py stub, no LLM call)
+    Section 4/39 - Module: src/phonebook/main.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:14:26)
+    Section 4/39 - done -> appended to Architecture Plan.md
+    Section 5/39 - Module: src/phonebook/config.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:15:07)
+    Section 5/39 - done -> appended to Architecture Plan.md
+    Section 6/39 - Module: src/phonebook/database.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:15:43)
+    Section 6/39 - done -> appended to Architecture Plan.md
+    Section 7/39 - Module: src/phonebook/models.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:16:22)
+    Section 7/39 - done -> appended to Architecture Plan.md
+    Section 8/39 - Module: src/phonebook/schemas.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:17:27)
+    Section 8/39 - done -> appended to Architecture Plan.md
+    Section 9/39 - Module: src/phonebook/crud.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:18:35)
+    Section 9/39 - done -> appended to Architecture Plan.md
+    Section 10/39 - Module: src/phonebook/routes/__init__.py
+    Section 10/39 - done (canned __init__.py stub, no LLM call)
+    Section 11/39 - Module: src/phonebook/routes/computers.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:19:44)
+    Section 11/39 - done -> appended to Architecture Plan.md
+    Section 12/39 - Module: src/phonebook/routes/export.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:21:23)
+    Section 12/39 - done -> appended to Architecture Plan.md
+    Section 13/39 - Module: src/phonebook/templates/base.html
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:22:21)
+    Section 13/39 - done -> appended to Architecture Plan.md
+    Section 14/39 - Module: src/phonebook/templates/index.html
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:22:55)
+    Section 14/39 - done -> appended to Architecture Plan.md
+    Section 15/39 - Module: src/phonebook/templates/partials/computer_row.html
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:23:22)
+    Section 15/39 - done -> appended to Architecture Plan.md
+    Section 16/39 - Module: src/phonebook/templates/partials/computer_form.html
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:23:49)
+    Section 16/39 - done -> appended to Architecture Plan.md
+    Section 17/39 - Module: src/phonebook/templates/partials/computer_detail.html
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:24:23)
+    Section 17/39 - done -> appended to Architecture Plan.md
+    Section 18/39 - Module: src/phonebook/static/style.css
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:25:27)
+    Section 18/39 - done -> appended to Architecture Plan.md
+    Section 19/39 - Module: src/phonebook/static/app.js
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:25:57)
+    Section 19/39 - done -> appended to Architecture Plan.md
+    Section 20/39 - File: pyproject.toml
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:26:27)
+    Section 20/39 - done -> appended to Architecture Plan.md
+    Section 21/39 - File: .env.example
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:27:01)
+    Section 21/39 - done -> appended to Architecture Plan.md
+    Section 22/39 - File: phonebook.service
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:27:23)
+    Section 22/39 - done -> appended to Architecture Plan.md
+    Section 23/39 - File: README.md
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:27:49)
+    Section 23/39 - done -> appended to Architecture Plan.md
+    Section 24/39 - Module: tests/conftest.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:28:44)
+    Section 24/39 - done -> appended to Architecture Plan.md
+    Section 25/39 - Module: tests/test_crud.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:29:22)
+    Section 25/39 - done -> appended to Architecture Plan.md
+    Section 26/39 - Module: tests/test_routes_computers.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:30:02)
+    Section 26/39 - done -> appended to Architecture Plan.md
+    Section 27/39 - Module: tests/test_routes_export.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:30:51)
+    Section 27/39 - done -> appended to Architecture Plan.md
+    Section 28/39 - Module: seed/seed_data.py
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:31:32)
+    Section 28/39 - done -> appended to Architecture Plan.md
+    Section 29/39 - Data Pipeline
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:32:08)
+    Section 29/39 - done -> appended to Architecture Plan.md
+    Section 30/39 - UI/TUI Layout
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:33:06)
+    Section 30/39 - done -> appended to Architecture Plan.md
+    Section 31/39 - Configuration
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:34:24)
+    Section 31/39 - done -> appended to Architecture Plan.md
+    Section 32/39 - Testing Strategy
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:35:02)
+    Section 32/39 - done -> appended to Architecture Plan.md
+    Section 33/39 - Dependencies
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:36:24)
+    Section 33/39 - done -> appended to Architecture Plan.md
+    Section 34/39 - Build/Run Instructions
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:37:15)
+    Section 34/39 - done -> appended to Architecture Plan.md
+    Section 35/39 - API Endpoint Table
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:38:28)
+    Section 35/39 - done -> appended to Architecture Plan.md
+    Section 36/39 - Template Map
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:39:04)
+    Section 36/39 - done -> appended to Architecture Plan.md
+    Section 37/39 - Test Plan
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:40:01)
+    Section 37/39 - done -> appended to Architecture Plan.md
+    Section 38/39 - Design Decisions
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3469s] - (22:41:01)
+    Section 38/39 - done -> appended to Architecture Plan.md
+    Section 39/39 - Deployment Notes
+    [local: qwen3-coder:30b @ http://192.168.1.126:11434 ctx=98304 think=False timeout=3470s] - (22:41:47)
+    Section 39/39 - done -> appended to Architecture Plan.md
+  All 39 sections generated in Architecture Plan.md

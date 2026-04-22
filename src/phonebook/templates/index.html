@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hey there! 👋</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Friendly Name</th>
+            <th>RustDesk ID</th>
+            <th>OS</th>
+            <th>Location</th>
+            <th>Tags</th>
+            <th>Updated</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="computer-table-body">
+        {% for computer in computers %}
+            {% include "partials/computer_row.html" %}
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

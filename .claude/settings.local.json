@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where ctags *)",
+      "Bash(python -c \"import shutil; print\\(shutil.which\\('ctags'\\)\\)\")"
+    ]
+  }
+}
