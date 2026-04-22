@@ -1,0 +1,5 @@
+﻿=== TARGETED CONTEXT FOR: src/phonebook/schemas.py ===
+
+## Cross-Reference Entries
+| `casual_greeting` | `src/phonebook/schemas.py` |
+

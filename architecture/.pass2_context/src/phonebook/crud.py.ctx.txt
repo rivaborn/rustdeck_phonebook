@@ -1,0 +1,10 @@
+﻿=== TARGETED CONTEXT FOR: src/phonebook/crud.py ===
+
+## Cross-Reference Entries
+| `create_computer` | `src/phonebook/crud.py` |
+| `delete_computer` | `src/phonebook/crud.py` |
+| `get_all_computers` | `src/phonebook/crud.py` |
+| `get_computer` | `src/phonebook/crud.py` |
+| `search_computers` | `src/phonebook/crud.py` |
+| `update_computer` | `src/phonebook/crud.py` |
+

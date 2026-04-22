@@ -1,0 +1,14 @@
+﻿=== TARGETED CONTEXT FOR: src/phonebook/routes/export.py ===
+
+## Architecture Context (subsystem)
+### API Routes
+- Purpose: Defines HTTP endpoints for computer management and data export
+- Key files: `src/phonebook/routes/computers.py`, `src/phonebook/routes/export.py`
+- Dependencies: Data access layer, configuration management
+
+### Application Core
+
+## Cross-Reference Entries
+| `export_csv` | `src/phonebook/routes/export.py` |
+| `export_json` | `src/phonebook/routes/export.py` |
+
