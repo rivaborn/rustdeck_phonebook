@@ -1,0 +1,9 @@
+
+## Accessing from another LAN machine
+
+The application is accessible from other machines on the local network. By default, it listens on all network interfaces (0.0.0.0) on port 8000. To access from another machine, navigate to `http://[server-ip]:8000` in your browser.
+
+## Configuring host/port via .env
+
+The application can be configured using environment variables defined in a `.env` file. Create a `.env` file in the project root with the following variables:
+

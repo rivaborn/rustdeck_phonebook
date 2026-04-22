@@ -1,0 +1,5 @@
+
+## Running behind nginx
+
+The application can be run behind nginx with a reverse proxy configuration. Here's a basic nginx configuration:
+

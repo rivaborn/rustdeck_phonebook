@@ -1,0 +1,68 @@
+<div class="modal-content">
+  <h2>Computer Details</h2>
+  <dl class="detail-list">
+    <div>
+      <dt>Friendly Name</dt>
+      <dd>{{ computer.friendly_name }}</dd>
+    </div>
+    <div>
+      <dt>RustDesk ID</dt>
+      <dd>
+        {{ computer.rustdesk_id }}
+        {% if computer.rustdesk_id %}
+          <button onclick="copyToClipboard('{{ computer.rustdesk_id }}')" class="copy-btn">Copy</button>
+        {% endif %}
+      </dd>
+    </div>
+    <div>
+      <dt>Hostname</dt>
+      <dd>{{ computer.hostname or 'N/A' }}</dd>
+    </div>
+    <div>
+      <dt>Local IP</dt>
+      <dd>
+        {{ computer.local_ip or 'N/A' }}
+        {% if computer.local_ip %}
+          <button onclick="copyToClipboard('{{ computer.local_ip }}')" class="copy-btn">Copy</button>
+        {% endif %}
+      </dd>
+    </div>
+    <div>
+      <dt>Operating System</dt>
+      <dd>{{ computer.operating_system or 'N/A' }}</dd>
+    </div>
+    <div>
+      <dt>Username</dt>
+      <dd>{{ computer.username or 'N/A' }}</dd>
+    </div>
+    <div>
+      <dt>Location</dt>
+      <dd>{{ computer.location or 'N/A' }}</dd>
+    </div>
+    <div>
+      <dt>Notes</dt>
+      <dd>{{ computer.notes or 'N/A' }}</dd>
+    </div>
+    <div>
+      <dt>Tags</dt>
+      <dd>
+        {% if computer.tags %}
+          {% for tag in computer.tags.split(',') %}
+            <span class="tag">{{ tag.strip() }}</span>
+          {% endfor %}
+        {% else %}
+          N/A
+        {% endif %}
+      </dd>
+    </div>
+    <div>
+      <dt>Created At</dt>
+      <dd>{{ computer.created_at }}</dd>
+    </div>
+    <div>
+      <dt>Updated At</dt>
+      <dd>{{ computer.updated_at }}</dd>
+    </div>
+  </dl>
+  <button hx-get="/computers/{{ computer.id }}/edit" hx-target="#modal" class="btn btn-primary">Edit</button>
+</div>

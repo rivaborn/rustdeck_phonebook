@@ -1,0 +1,12 @@
+
+## Quick Start
+
+1. Clone the repository
+2. Create and activate a virtual environment
+3. Install the package in development mode
+4. Run the application with `uvicorn`
+5. Access the application at `http://localhost:8000`
+6. (Optional) Configure with a `.env` file
+7. (Optional) Seed sample data
+8. (Optional) Set up systemd service for production
+9. (Optional) Configure nginx reverse proxy
