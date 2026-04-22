@@ -1,0 +1,5 @@
+﻿=== TARGETED CONTEXT FOR: src/phonebook/config.py ===
+
+## Cross-Reference Entries
+| `get_settings` | `src/phonebook/config.py` |
+

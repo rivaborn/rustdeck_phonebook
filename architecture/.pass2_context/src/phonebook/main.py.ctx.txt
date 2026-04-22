@@ -1,0 +1,6 @@
+﻿=== TARGETED CONTEXT FOR: src/phonebook/main.py ===
+
+## Cross-Reference Entries
+| `create_app` | `src/phonebook/main.py` |
+| `lifespan` | `src/phonebook/main.py` |
+

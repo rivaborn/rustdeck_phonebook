@@ -1,0 +1,9 @@
+﻿=== TARGETED CONTEXT FOR: src/phonebook/database.py ===
+
+## Cross-Reference Entries
+| `create_engine` | `src/phonebook/database.py` |
+| `get_db` | `src/phonebook/database.py` |
+| `get_sessionmaker` | `src/phonebook/database.py` |
+| `get_settings_instance` | `src/phonebook/database.py` |
+| `init_db` | `src/phonebook/database.py` |
+

@@ -1,0 +1,19 @@
+﻿=== TARGETED CONTEXT FOR: src/phonebook/routes/computers.py ===
+
+## Architecture Context (subsystem)
+### API Routes
+- Purpose: Defines HTTP endpoints for computer management and data export
+- Key files: `src/phonebook/routes/computers.py`, `src/phonebook/routes/export.py`
+- Dependencies: Data access layer, configuration management
+
+### Application Core
+
+## Cross-Reference Entries
+| `computer_detail` | `src/phonebook/routes/computers.py` |
+| `create_computer_route` | `src/phonebook/routes/computers.py` |
+| `delete_computer_route` | `src/phonebook/routes/computers.py` |
+| `list_computers` | `src/phonebook/routes/computers.py` |
+| `new_computer_form` | `src/phonebook/routes/computers.py` |
+| `search_computers_route` | `src/phonebook/routes/computers.py` |
+| `update_computer_route` | `src/phonebook/routes/computers.py` |
+
