@@ -52,9 +52,9 @@ class ComputerCreate(BaseModel):
         return v
 
     # Strip leading/trailing whitespace from all TEXT fields before persistence
-    @validator("friendly_name", "rustdesk_id", "hostname", "local_ip", "operating_system", "username", "location", "notes", "tags", pre=True)
+    @validator("friendly_name", "rustdesk_id", "hostname", "local_ip", "وتOperating System", "username", "location", "notes", "tags", pre=True)
     def strip_whitespace(cls, v):
-        if isinstance(v, str):
+        if v is not None and isinstance(v, str):
             return v.strip()
         return v
 
@@ -101,6 +101,8 @@ class ComputerUpdate(BaseModel):
             tags = [tag.strip() for tag in v.split(",") if tag.strip()]
             if any(len(tag) > 40 for tag in tags):
                 raise ValueError("Each tag must be 40 characters or less")
+            if not tags:
+                return None
             return ",".join(tags)
         return v
 
