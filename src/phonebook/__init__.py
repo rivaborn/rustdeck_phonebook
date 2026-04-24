@@ -12,10 +12,10 @@ owns each symbol (see other `## Module: src/...` sections).
 Re-exports: optional, determined at implementation time. May be empty.
 """
 
-from .src.phonebook.config import Settings, get_settings
-from .src.phonebook.database import get_db, init_db
-from .src.phonebook.models import Base, Computer
-from .src.phonebook.crud import (
+from .config import Settings, get_settings
+from .database import get_db, init_db
+from .models import Base, Computer
+from .crud import (
     create_computer,
     delete_computer,
     get_all_computers,
@@ -23,5 +23,5 @@ from .src.phonebook.crud import (
     search_computers,
     update_computer
 )
-from .src.phonebook.schemas import ComputerCreate, ComputerOut, ComputerUpdate
-from .src.phonebook.main import app, create_app, lifespan
+from .schemas import ComputerCreate, ComputerOut, ComputerUpdate
+from .main import app, create_app, lifespan

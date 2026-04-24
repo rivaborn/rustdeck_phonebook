@@ -1,14 +1,29 @@
 from fastapi import FastAPI
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from src.phonebook.config import get_settings
-from src.phonebook.database import init_db
-from src.phonebook.routes import computers, export
+from .config import get_settings
+from .database import init_db
+from .routes import computers, export
 from typing import AsyncGenerator
 from pathlib import Path
 import logging
 
 logger = logging.getLogger(__name__)
+
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+    """Lifespan context manager for the FastAPI application."""
+    # Call init_db() to initialize database.
+    try:
+        init_db()
+    except Exception as e:
+        logger.critical(f"Database init failed: {e}")
+        raise
+    
+    # Yield control to app.
+    yield
+    
+    # On app shutdown, no cleanup needed.
+    # (Database connections are managed by SQLAlchemy's session lifecycle.)
 
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application instance."""
@@ -36,23 +51,5 @@ def create_app() -> FastAPI:
     # Return app.
     return app
 
-async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    """Lifespan context manager for the FastAPI application."""
-    # Call init_db() to initialize database.
-    try:
-        init_db()
-    except Exception as e:
-        logger.critical(f"Database init failed: {e}")
-        raise
-    
-    # Yield control to app.
-    yield
-    
-    # On app shutdown, no cleanup needed.
-    # (Database connections are managed by SQLAlchemy's session lifecycle.)
-
 # Create the global app instance
 app = create_app()
-
-# Assign the lifespan context manager to the app's router
-app.router.lifespan_context = lifespan

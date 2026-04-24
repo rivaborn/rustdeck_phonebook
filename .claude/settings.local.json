@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(where ctags *)",
-      "Bash(python -c \"import shutil; print\\(shutil.which\\('ctags'\\)\\)\")"
+      "Bash(python -c \"import shutil; print\\(shutil.which\\('ctags'\\)\\)\")",
+      "Bash(python -c \"import starlette; print\\(starlette.__version__\\); import fastapi; print\\(fastapi.__version__\\); import jinja2; print\\(jinja2.__version__\\)\")",
+      "Bash(pip show *)"
     ]
   }
 }
