@@ -8,11 +8,11 @@ from typing import Generator
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
-from phonebook.config import get_settings
+from .config import get_settings
 from urllib.parse import urlparse
 
 # Create the SQLAlchemy engine
-def create_engine(database_url: str, connect_args: dict) -> object:
+def create_engine_func(database_url: str, connect_args: dict) -> object:
     """
     Create a SQLAlchemy engine for the database.
     
@@ -66,7 +66,7 @@ def init_db() -> None:
     
     # Create the engine with appropriate connection arguments
     try:
-        engine = create_engine(
+        engine = create_engine_func(
             settings.DATABASE_URL,
             connect_args={"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {}
         )
@@ -95,7 +95,7 @@ def get_db() -> Generator[Session, None, None]:
         raise ValueError("DATABASE_URL must be configured")
     
     # Create the engine once
-    engine = create_engine(
+    engine = create_engine_func(
         settings.DATABASE_URL,
         connect_args={"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {}
     )
@@ -118,4 +118,4 @@ def get_db() -> Generator[Session, None, None]:
         db.close()
 
 # Import Base from models module
-from phonebook.models import Base
+from .models import Base

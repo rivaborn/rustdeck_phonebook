@@ -1,6 +1,6 @@
-from phonebook.models import Computer
-from phonebook.schemas import ComputerCreate, ComputerUpdate
-from phonebook.database import Session
+from .models import Computer
+from .schemas import ComputerCreate, ComputerUpdate
+from .database import Session
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import or_
 from datetime import datetime

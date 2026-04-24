@@ -1,15 +1,17 @@
 """
 Module for exporting computer records in JSON and CSV formats.
 """
-from fastapi import Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import JSONResponse, StreamingResponse
 from typing import List
 from io import StringIO
 import csv
 
-from phonebook.database import get_db
-from phonebook.crud import get_all_computers
-from phonebook.schemas import ComputerOut
+from ..database import get_db
+from ..crud import get_all_computers
+from ..schemas import ComputerOut
+
+router = APIRouter()
 
 def export_json(request: Request) -> JSONResponse:
     """
@@ -99,3 +101,7 @@ def export_csv(request: Request) -> StreamingResponse:
         raise HTTPException(status_code=500, detail="Internal server error during CSV export")
     finally:
         db.close()
+
+# Add routes to the router
+router.get("/export/json")(export_json)
+router.get("/export/csv")(export_csv)

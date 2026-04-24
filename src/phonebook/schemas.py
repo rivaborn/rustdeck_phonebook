@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field, validator
 from typing import Optional, List
 import ipaddress
 
-from phonebook.models import Computer
+from .models import Computer
 
 class ComputerCreate(BaseModel):
     friendly_name: str
@@ -52,7 +52,7 @@ class ComputerCreate(BaseModel):
         return v
 
     # Strip leading/trailing whitespace from all TEXT fields before persistence
-    @validator("friendly_name", "rustdesk_id", "hostname", "local_ip", "وتOperating System", "username", "location", "notes", "tags", pre=True)
+    @validator("friendly_name", "rustdesk_id", "hostname", "local_ip", "operating_system", "username", "location", "notes", "tags", pre=True)
     def strip_whitespace(cls, v):
         if v is not None and isinstance(v, str):
             return v.strip()
@@ -109,7 +109,7 @@ class ComputerUpdate(BaseModel):
     # Strip leading/trailing whitespace from all TEXT fields before persistence
     @validator("friendly_name", "rustdesk_id", "hostname", "local_ip", "operating_system", "username", "location", "notes", "tags", pre=True)
     def strip_whitespace(cls, v):
-        if isinstance(v, str):
+        if v is not None and isinstance(v, str):
             return v.strip()
         return v
 
