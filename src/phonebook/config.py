@@ -1,6 +1,7 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
-import threading
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
 
 class Settings(BaseSettings):
     HOST: str = "0.0.0.0"
@@ -10,16 +11,8 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
+
 @lru_cache
 def get_settings() -> Settings:
-    """
-    1. Use lru_cache decorator to memoize results.
-    2. Create and return a new Settings instance by parsing environment variables.
-    3. If environment file is missing, use default values.
-    """
-    try:
-        return Settings()
-    except Exception:
-        # If settings loading fails, we return a default Settings object
-        # This prevents the application from crashing on startup
-        return Settings()
+    """Return memoized application settings. Missing .env falls back to defaults."""
+    return Settings()

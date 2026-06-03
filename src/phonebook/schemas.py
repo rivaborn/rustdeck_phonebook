@@ -1,8 +1,20 @@
-from pydantic import BaseModel, Field, validator
-from typing import Optional, List
 import ipaddress
+from typing import Optional
 
-from .models import Computer
+from pydantic import BaseModel, ConfigDict, field_validator
+
+
+def _normalize_tags(value: Optional[str]) -> Optional[str]:
+    """Split on commas, strip each tag, drop empties, enforce length, rejoin."""
+    if value is None:
+        return None
+    tags = [tag.strip() for tag in value.split(",") if tag.strip()]
+    if any(len(tag) > 40 for tag in tags):
+        raise ValueError("Each tag must be 40 characters or less")
+    if not tags:
+        return None
+    return ", ".join(tags)
+
 
 class ComputerCreate(BaseModel):
     friendly_name: str
@@ -15,24 +27,32 @@ class ComputerCreate(BaseModel):
     notes: Optional[str] = None
     tags: Optional[str] = None
 
-    # Validate that friendly_name is 1-120 characters, strip whitespace
-    @validator("friendly_name")
+    # Strip leading/trailing whitespace from all TEXT fields before validation.
+    @field_validator(
+        "friendly_name", "rustdesk_id", "hostname", "local_ip",
+        "operating_system", "username", "location", "notes", "tags",
+        mode="before",
+    )
+    @classmethod
+    def strip_whitespace(cls, v):
+        return v.strip() if isinstance(v, str) else v
+
+    @field_validator("friendly_name")
+    @classmethod
     def validate_friendly_name(cls, v):
-        v = v.strip()
         if not (1 <= len(v) <= 120):
             raise ValueError("friendly_name must be 1-120 characters")
         return v
 
-    # Validate that rustdesk_id is 1-64 characters, strip whitespace
-    @validator("rustdesk_id")
+    @field_validator("rustdesk_id")
+    @classmethod
     def validate_rustdesk_id(cls, v):
-        v = v.strip()
         if not (1 <= len(v) <= 64):
             raise ValueError("rustdesk_id must be 1-64 characters")
         return v
 
-    # Validate that local_ip is valid IPv4 or IPv6 when provided
-    @validator("local_ip")
+    @field_validator("local_ip")
+    @classmethod
     def validate_local_ip(cls, v):
         if v is not None:
             try:
@@ -41,22 +61,11 @@ class ComputerCreate(BaseModel):
                 raise ValueError("local_ip must be a valid IPv4 or IPv6 address")
         return v
 
-    # Validate that tags are comma-separated, each ≤ 40 characters, strip and rejoin
-    @validator("tags")
+    @field_validator("tags")
+    @classmethod
     def validate_tags(cls, v):
-        if v is not None:
-            tags = [tag.strip() for tag in v.split(",") if tag.strip()]
-            if any(len(tag) > 40 for tag in tags):
-                raise ValueError("Each tag must be 40 characters or less")
-            return ",".join(tags)
-        return v
+        return _normalize_tags(v)
 
-    # Strip leading/trailing whitespace from all TEXT fields before persistence
-    @validator("friendly_name", "rustdesk_id", "hostname", "local_ip", "operating_system", "username", "location", "notes", "tags", pre=True)
-    def strip_whitespace(cls, v):
-        if v is not None and isinstance(v, str):
-            return v.strip()
-        return v
 
 class ComputerUpdate(BaseModel):
     friendly_name: Optional[str] = None
@@ -69,24 +78,31 @@ class ComputerUpdate(BaseModel):
     notes: Optional[str] = None
     tags: Optional[str] = None
 
-    # When a field is provided, validate it according to ComputerCreate rules
-    @validator("friendly_name")
+    @field_validator(
+        "friendly_name", "rustdesk_id", "hostname", "local_ip",
+        "operating_system", "username", "location", "notes", "tags",
+        mode="before",
+    )
+    @classmethod
+    def strip_whitespace(cls, v):
+        return v.strip() if isinstance(v, str) else v
+
+    @field_validator("friendly_name")
+    @classmethod
     def validate_friendly_name(cls, v):
-        if v is not None:
-            v = v.strip()
-            if not (1 <= len(v) <= 120):
-                raise ValueError("friendly_name must be 1-120 characters")
+        if v is not None and not (1 <= len(v) <= 120):
+            raise ValueError("friendly_name must be 1-120 characters")
         return v
 
-    @validator("rustdesk_id")
+    @field_validator("rustdesk_id")
+    @classmethod
     def validate_rustdesk_id(cls, v):
-        if v is not None:
-            v = v.strip()
-            if not (1 <= len(v) <= 64):
-                raise ValueError("rustdesk_id must be 1-64 characters")
+        if v is not None and not (1 <= len(v) <= 64):
+            raise ValueError("rustdesk_id must be 1-64 characters")
         return v
 
-    @validator("local_ip")
+    @field_validator("local_ip")
+    @classmethod
     def validate_local_ip(cls, v):
         if v is not None:
             try:
@@ -95,25 +111,15 @@ class ComputerUpdate(BaseModel):
                 raise ValueError("local_ip must be a valid IPv4 or IPv6 address")
         return v
 
-    @validator("tags")
+    @field_validator("tags")
+    @classmethod
     def validate_tags(cls, v):
-        if v is not None:
-            tags = [tag.strip() for tag in v.split(",") if tag.strip()]
-            if any(len(tag) > 40 for tag in tags):
-                raise ValueError("Each tag must be 40 characters or less")
-            if not tags:
-                return None
-            return ",".join(tags)
-        return v
+        return _normalize_tags(v)
 
-    # Strip leading/trailing whitespace from all TEXT fields before persistence
-    @validator("friendly_name", "rustdesk_id", "hostname", "local_ip", "operating_system", "username", "location", "notes", "tags", pre=True)
-    def strip_whitespace(cls, v):
-        if v is not None and isinstance(v, str):
-            return v.strip()
-        return v
 
 class ComputerOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     friendly_name: str
     rustdesk_id: str
@@ -126,9 +132,3 @@ class ComputerOut(BaseModel):
     tags: Optional[str] = None
     created_at: str
     updated_at: str
-
-    class Config:
-        from_attributes = True
-
-def casual_greeting(name: str) -> str:
-    return f"Hi {name}, welcome to the phonebook app!"

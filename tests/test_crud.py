@@ -356,9 +356,11 @@ def test_init_db(db_session):
 def test_get_db_success(db_session):
     """Test that get_db yields a valid SQLAlchemy session and closes it properly"""
     # This test verifies that get_db works correctly with a valid session
-    db = next(get_db(db_session))
+    gen = get_db()
+    db = next(gen)
     assert db is not None
     assert hasattr(db, 'query')
+    gen.close()
 
 def test_get_db_failure():
     """Test that get_db raises an exception when the database connection fails"""
@@ -412,8 +414,9 @@ def test_computer_model_auto_increment_id(db_session):
     }
     
     computer1 = create_computer(db_session, computer_data)
-    computer2 = create_computer(db_session, computer_data)
-    
+    # Distinct rustdesk_id (it is UNIQUE) so the second insert succeeds.
+    computer2 = create_computer(db_session, {**computer_data, "rustdesk_id": "123457"})
+
     assert computer1.id != computer2.id
     assert computer1.id == 1
     assert computer2.id == 2

@@ -1,4 +1,4 @@
-<tr>
+<tr id="computer-{{ computer.id }}">
   <td data-label="Friendly Name">
     <span hx-get="/computers/{{ computer.id }}" hx-target="#modal" hx-swap="innerHTML" class="clickable">{{ computer.friendly_name or 'Unnamed Computer' }}</span>
   </td>

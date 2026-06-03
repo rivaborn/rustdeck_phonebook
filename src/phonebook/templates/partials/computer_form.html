@@ -1,55 +1,71 @@
-<form hx-post="/computers" hx-put="/computers/{{ computer.id }}" method="post" class="computer-form">
+{% set editing = computer and computer.id %}
+<form
+  {% if editing %}
+    hx-put="/computers/{{ computer.id }}"
+    hx-target="#computer-{{ computer.id }}"
+    hx-swap="outerHTML"
+  {% else %}
+    hx-post="/computers"
+    hx-target="#computer-table-body"
+    hx-swap="afterbegin"
+  {% endif %}
+  class="computer-form">
+
+  {% if error %}
+  <div class="form-error" role="alert">{{ error }}</div>
+  {% endif %}
+
   <div class="form-group">
     <label for="friendly_name">Friendly Name</label>
-    <input type="text" id="friendly_name" name="friendly_name" required>
+    <input type="text" id="friendly_name" name="friendly_name" value="{{ computer.friendly_name or '' }}" required>
     <span class="field-error" id="friendly_name-error"></span>
   </div>
 
   <div class="form-group">
     <label for="rustdesk_id">RustDesk ID</label>
-    <input type="text" id="rustdesk_id" name="rustdesk_id" required>
+    <input type="text" id="rustdesk_id" name="rustdesk_id" value="{{ computer.rustdesk_id or '' }}" required>
     <span class="field-error" id="rustdesk_id-error"></span>
   </div>
 
   <div class="form-group">
     <label for="hostname">Hostname</label>
-    <input type="text" id="hostname" name="hostname">
+    <input type="text" id="hostname" name="hostname" value="{{ computer.hostname or '' }}">
     <span class="field-error" id="hostname-error"></span>
   </div>
 
   <div class="form-group">
     <label for="local_ip">Local IP</label>
-    <input type="text" id="local_ip" name="local_ip">
+    <input type="text" id="local_ip" name="local_ip" value="{{ computer.local_ip or '' }}">
     <span class="field-error" id="local_ip-error"></span>
   </div>
 
   <div class="form-group">
     <label for="operating_system">Operating System</label>
-    <input type="text" id="operating_system" name="operating_system">
+    <input type="text" id="operating_system" name="operating_system" value="{{ computer.operating_system or '' }}">
     <span class="field-error" id="operating_system-error"></span>
   </div>
 
   <div class="form-group">
     <label for="username">Username</label>
-    <input type="text" id="username" name="username">
+    <input type="text" id="username" name="username" value="{{ computer.username or '' }}">
     <span class="field-error" id="username-error"></span>
   </div>
 
   <div class="form-group">
     <label for="location">Location</label>
-    <input type="text" id="location" name="location">
+    <input type="text" id="location" name="location" value="{{ computer.location or '' }}">
     <span class="field-error" id="location-error"></span>
   </div>
 
   <div class="form-group">
     <label for="notes">Notes</label>
-    <textarea id="notes" name="notes"></textarea>
+    <textarea id="notes" name="notes">{{ computer.notes or '' }}</textarea>
     <span class="field-error" id="notes-error"></span>
   </div>
 
   <div class="form-group">
     <label for="tags">Tags</label>
-    <input type="text" id="tags" name="tags" placeholder="comma separated tags">
+    <input type="text" id="tags" name="tags" value="{{ computer.tags or '' }}" placeholder="comma separated tags">
     <span class="field-error" id="tags-error"></span>
   </div>
 

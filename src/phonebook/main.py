@@ -45,9 +45,9 @@ def create_app() -> FastAPI:
     # Mount static files at "/static" pointing to "src/phonebook/static/".
     app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")), name="static")
     
-    # Instantiate Jinja2Templates with directory "src/phonebook/templates/".
-    templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
-    
+    # Instantiate Jinja2Templates and expose it on app.state for reuse.
+    app.state.templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
+
     # Return app.
     return app
 
