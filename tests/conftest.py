@@ -1,64 +1,45 @@
 import pytest
-from sqlalchemy.orm import Session
-from httpx import AsyncClient
-from unittest.mock import patch
+from httpx import ASGITransport, AsyncClient
+from sqlalchemy.pool import StaticPool
 
+from phonebook.config import get_settings  # noqa: F401 (kept for tests importing via conftest)
+from phonebook.database import SessionLocal, create_engine, get_db, init_db
 from phonebook.main import app
-from phonebook.database import init_db, SessionLocal, create_engine
-from phonebook.config import get_settings
+
 
 @pytest.fixture
 def db_session():
+    """A clean in-memory SQLite session shared across one test.
+
+    StaticPool keeps every connection pointed at the same in-memory database so
+    the tables created by ``init_db`` are visible to the session (and to routes
+    that reuse this session via the dependency override below).
     """
-    Create an in-memory SQLite database session for testing.
-    
-    This fixture provides a clean database for each test function.
-    It creates an in-memory SQLite engine, initializes the database schema,
-    and yields a session that is automatically closed after the test.
-    """
-    # Create in-memory SQLite engine
-    engine = create_engine("sqlite:///:memory:")
-    
-    # Initialize database tables
+    engine = create_engine(
+        "sqlite://",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
     init_db(engine)
-    
-    # Create session
     session = SessionLocal(bind=engine)
-    
     try:
         yield session
     finally:
-        # Close session and drop tables
         session.close()
-        # Note: In-memory database is automatically dropped when connection is closed
+        engine.dispose()
+
 
 @pytest.fixture
-async def client():
-    """
-    Create an async HTTP client for testing routes.
-    
-    This fixture provides an AsyncClient that is configured to use the test
-    database and overrides the get_db dependency to use the db_session fixture.
-    """
-    # Create AsyncClient
-    async_client = AsyncClient(base_url="http://testserver")
-    
-    try:
-        yield async_client
-    finally:
-        # Close client
-        async_client.close()
+async def client(db_session):
+    """Async HTTP client wired to the app, with get_db overridden to db_session."""
 
-@pytest.fixture
-def override_get_db():
-    """
-    Override the get_db dependency to use the test database session.
-    
-    This fixture can be used to patch the get_db dependency in route tests
-    to ensure they use the test database instead of the production database.
-    """
     def _override_get_db():
-        # This will be used in patch context managers
-        pass
-    
-    return _override_get_db
+        yield db_session
+
+    app.dependency_overrides[get_db] = _override_get_db
+    transport = ASGITransport(app=app)
+    try:
+        async with AsyncClient(transport=transport, base_url="http://testserver") as ac:
+            yield ac
+    finally:
+        app.dependency_overrides.clear()

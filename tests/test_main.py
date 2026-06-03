@@ -51,9 +51,10 @@ def test_create_app_instantiates_jinja_templates():
 @pytest.mark.asyncio
 async def test_lifespan_calls_init_db():
     """Test that lifespan() calls init_db() on startup."""
-    with patch('phonebook.database.init_db') as mock_init_db:
+    # main.py imports init_db by name, so patch it where it is used.
+    with patch('phonebook.main.init_db') as mock_init_db:
         app = create_app()
-        
+
         # Create an async context manager from the lifespan
         async with app.router.lifespan_context(app):
             # The lifespan should have called init_db during startup

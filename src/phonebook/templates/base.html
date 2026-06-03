@@ -11,7 +11,7 @@
     <nav>
         <h1>RustDesk Phone Book</h1>
         <button hx-get="/computers/new" hx-target="#modal" hx-swap="innerHTML">Add Computer</button>
-        <input type="text" id="search-input" placeholder="Search computers..." hx-get="/computers/search" hx-target="#computer-table-body" hx-trigger="input changed delay:300ms" hx-include="#search-input">
+        <input type="text" id="search-input" name="q" placeholder="Search computers..." hx-get="/computers/search" hx-target="#computer-table-body" hx-trigger="input changed delay:300ms">
         <a href="/export/json">Export JSON</a>
         <a href="/export/csv">Export CSV</a>
     </nav>
