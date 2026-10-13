@@ -1,108 +1,104 @@
-import pytest
-from unittest.mock import mock_open, patch
-
-@pytest.fixture
-def css_content():
-    return """
-:root {
-    --primary-color: #3498db;
-    --secondary-color: #2ecc71;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --primary-color: #2c3e50;
-        --secondary-color: #27ae60;
-    }
-}
-
-table.responsive-table th,
-table.responsive-table td::before {
-    content: attr(data-label);
-}
-
-.tag {
-    display: inline-block;
-    padding: 0.2em 0.6em;
-    margin-right: 0.5em;
-    background-color: #3498db;
-    color: white;
-    border-radius: 16px;
-}
-
-.field-error {
-    color: red;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
 """
+Checks on src/phonebook/static/style.css (the real file, not a mock).
 
-@pytest.fixture
-def mock_css_file(monkeypatch, css_content):
-    mock = mock_open(read_data=css_content)
-    monkeypatch.setattr("builtins.open", mock)
-    return mock
+Encodes the design-system rules: tokens on :root, dark theme via both the
+data-theme attribute and prefers-color-scheme, no hard-coded colors outside
+the token blocks, reduced-motion support, and no external CSS framework.
+"""
+import re
+from pathlib import Path
 
-def test_custom_properties(mock_css_file, css_content):
-    with open('src/phonebook/static/style.css') as f:
-        content = f.read()
-    
-    assert '--primary-color: #3498db;' in content
-    assert '--secondary-color: #2ecc71;' in content
-    assert '@media (prefers-color-scheme: dark)' in content
-    assert '--primary-color: #2c3e50;' in css_content.split('@media')[1]
-    assert '--secondary-color: #27ae60;' in css_content.split('@media')[1]
+import pytest
 
-def test_responsive_table_layout(mock_css_file, css_content):
-    with open('src/phonebook/static/style.css') as f:
-        content = f.read()
-    
-    assert 'table.responsive-table th,' in content
-    assert 'td::before {' in content
-    assert 'content: attr(data-label);' in content
+CSS_PATH = Path(__file__).resolve().parents[1] / "src" / "phonebook" / "static" / "style.css"
+COLOR_LITERAL = re.compile(r"#[0-9a-fA-F]{3,8}\b|\brgba?\(")
 
-def test_tag_styling(mock_css_file, css_content):
-    with open('src/phonebook/static/style.css') as f:
-        content = f.read()
-    
-    assert '.tag {' in content
-    assert 'display: inline-block;' in content
-    assert 'padding: 0.2em 0.6em;' in content
-    assert 'margin-right: 0.5em;' in content
-    assert 'background-color: #3498db;' in content
-    assert 'color: white;' in content
-    assert 'border-radius: 16px;' in content
 
-def test_error_message_styling(mock_css_file, css_content):
-    with open('src/phonebook/static/style.css') as f:
-        content = f.read()
-    
-    assert '.field-error {' in content
-    assert 'color: red;' in content
+@pytest.fixture(scope="module")
+def css():
+    return CSS_PATH.read_text(encoding="utf-8")
 
-def test_modal_overlay_behavior(mock_css_file, css_content):
-    with open('src/phonebook/static/style.css') as f:
-        content = f.read()
-    
-    assert '.modal {' in content
-    assert 'position: fixed;' in content
-    assert 'top: 0;' in content
-    assert 'left: 0;' in content
-    assert 'width: 100%;' in content
-    assert 'height: 100%;' in content
-    assert 'background-color: rgba(0, 0, 0, 0.5);' in content
 
-def test_no_external_css_frameworks(mock_css_file, css_content):
-    with open('src/phonebook/static/style.css') as f:
-        content = f.read()
-    
-    external_frameworks = ['bootstrap', 'tailwind', 'materialize', 'foundation']
-    for framework in external_frameworks:
-        assert framework not in content.lower()
+def _strip_comments(text):
+    return re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+
+
+def _token_blocks_removed(css):
+    """Return the stylesheet with every block that defines tokens removed."""
+    text = _strip_comments(css)
+    text = re.sub(r":root\s*\{[^}]*\}", "", text)
+    text = re.sub(r":root\[data-theme=\"dark\"\]\s*\{[^}]*\}", "", text)
+    text = re.sub(r":root:not\(\[data-theme=\"light\"\]\)\s*\{[^}]*\}", "", text)
+    return text
+
+
+def _tokens(block):
+    return set(re.findall(r"(--[\w-]+)\s*:", block))
+
+
+def test_light_tokens_defined_on_root(css):
+    root = re.search(r":root\s*\{([^}]*)\}", css).group(1)
+
+    for token in ("--surface", "--shadow-light", "--shadow-dark", "--text", "--accent",
+                  "--danger", "--font-size-body", "--space-4", "--radius-panel",
+                  "--shadow-raised", "--shadow-inset", "--duration"):
+        assert token in _tokens(root), token
+
+
+def test_dark_theme_by_attribute_and_media_query(css):
+    by_attr = re.search(r":root\[data-theme=\"dark\"\]\s*\{([^}]*)\}", css)
+    by_media = re.search(
+        r"@media \(prefers-color-scheme: dark\)\s*\{\s*:root:not\(\[data-theme=\"light\"\]\)\s*\{([^}]*)\}",
+        css,
+    )
+    assert by_attr and by_media
+
+    # Both dark blocks redefine the same tokens
+    assert _tokens(by_attr.group(1)) == _tokens(by_media.group(1))
+    assert {"--surface", "--shadow-light", "--shadow-dark", "--text"} <= _tokens(by_attr.group(1))
+
+
+def test_components_use_no_color_literals(css):
+    rest = _token_blocks_removed(css)
+
+    assert COLOR_LITERAL.findall(rest) == []
+
+
+def test_every_referenced_token_is_defined(css):
+    defined = _tokens(_strip_comments(css))
+    used = set(re.findall(r"var\((--[\w-]+)", css))
+
+    assert used - defined == set()
+
+
+def test_focus_ring_uses_accent(css):
+    rule = re.search(r":focus-visible\s*\{([^}]*)\}", css).group(1)
+
+    assert "var(--accent)" in rule
+    assert "outline-offset" in rule
+
+
+def test_respects_reduced_motion(css):
+    assert "@media (prefers-reduced-motion: reduce)" in css
+
+
+def test_table_stacks_into_cards_below_desktop(css):
+    assert "@media (max-width: 1023px)" in css
+    assert "content: attr(data-label)" in css
+
+
+def test_htmx_swap_targets_styled(css):
+    assert "#modal:not(:empty)" in css
+    assert ".htmx-request" in css
+
+
+def test_state_classes_present(css):
+    for selector in (".tag", ".field-error", ".form-error", ".empty-state", ".toast",
+                     ".btn:disabled", ".btn-primary", ".btn-danger"):
+        assert selector in css, selector
+
+
+def test_no_external_css_framework(css):
+    assert "@import" not in css
+    for framework in ("bootstrap", "tailwind", "bulma", "foundation"):
+        assert framework not in css.lower(), framework

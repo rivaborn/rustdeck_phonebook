@@ -26,8 +26,11 @@ def test_module_engine_and_sessionlocal_exist():
 
 def test_init_db_creates_tables_with_engine():
     eng = _memory_engine()
-    init_db(eng)
-    assert "computers" in inspect(eng).get_table_names()
+    try:
+        init_db(eng)
+        assert "computers" in inspect(eng).get_table_names()
+    finally:
+        eng.dispose()
 
 
 def test_init_db_accepts_session_bind():
@@ -39,6 +42,7 @@ def test_init_db_accepts_session_bind():
         assert "computers" in inspect(eng).get_table_names()
     finally:
         session.close()
+        eng.dispose()
 
 
 def test_init_db_defaults_to_module_engine():

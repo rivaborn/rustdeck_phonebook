@@ -32,3 +32,21 @@ def test_shows_copied_tooltip(source):
 def test_confirm_delete_is_omitted(source):
     # HTMX hx-confirm replaces a custom confirmDelete handler.
     assert "function confirmDelete(" not in source
+
+
+def test_no_module_syntax(source):
+    # app.js is a classic script loaded with <script defer>; module syntax would break it
+    import re
+
+    assert not re.search(r"^\s*(import|export)\b", source, flags=re.M)
+
+
+def test_copy_feedback_uses_styled_toast(source):
+    assert "toast.className" in source
+    assert "'toast toast-error'" in source
+
+
+def test_base_template_loads_app_js():
+    base = APP_JS.parents[1] / "templates" / "base.html"
+
+    assert '<script src="/static/app.js" defer></script>' in base.read_text(encoding="utf-8")
