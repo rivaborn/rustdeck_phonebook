@@ -1,10 +1,10 @@
 <tr id="computer-{{ computer.id }}">
-  <td data-label="Name">
+  <td data-label="Name" class="wrap">
     <button type="button" hx-get="/computers/{{ computer.id }}" hx-target="#modal" hx-swap="innerHTML" class="clickable">{{ computer.friendly_name or 'Unnamed Computer' }}</button>
   </td>
   <td data-label="RustDesk ID" class="mono">{{ computer.rustdesk_id }}</td>
-  <td data-label="OS">{{ computer.operating_system or 'N/A' }}</td>
-  <td data-label="Location">{{ computer.location or 'N/A' }}</td>
+  <td data-label="OS" class="wrap">{{ computer.operating_system or 'N/A' }}</td>
+  <td data-label="Location" class="wrap">{{ computer.location or 'N/A' }}</td>
   <td data-label="Tags">
     {% if computer.tags %}
       <div class="tags">

@@ -81,6 +81,7 @@
   --search-min: 240px;
   --label-col-min: 96px;
   --tags-max: 136px;
+  --col-text-max: 140px;
   --tracking-caps: 0.06em;
   --tracking-mono: 0.02em;
 
@@ -481,6 +482,13 @@ a {
 
 .table td {
   white-space: nowrap;
+}
+
+/* Free-text columns wrap so long names don't push the actions off-card */
+.table td.wrap {
+  white-space: normal;
+  max-width: var(--col-text-max);
+  overflow-wrap: break-word;
 }
 
 .table .tags {
