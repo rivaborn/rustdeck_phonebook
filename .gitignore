@@ -1,0 +1,11 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+
+# Local virtualenvs
+venv/
+.venv/
