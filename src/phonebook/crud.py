@@ -17,6 +17,9 @@ _FIELDS = (
 )
 
 
+_REQUIRED = ("friendly_name", "rustdesk_id")
+
+
 def _as_dict(data) -> dict:
     """Accept a validated Pydantic schema (the route path) or a plain dict."""
     if isinstance(data, dict):
@@ -81,15 +84,24 @@ def create_computer(db: Session, data) -> Computer:
 
 
 def update_computer(db: Session, computer_id: int, data) -> Computer | None:
-    """Update a Computer with provided values, skipping fields left as None."""
+    """
+    Update a Computer with the fields provided in data.
+
+    A field set to None clears an optional column; the required columns
+    (friendly_name, rustdesk_id) are never cleared. Fields not provided are kept.
+    """
     computer = get_computer(db, computer_id)
     if not computer:
         return None
 
-    d = _as_dict(data)
+    # Only fields the caller actually set; unset schema fields must not clear columns
+    d = data.model_dump(exclude_unset=True) if hasattr(data, "model_dump") else _as_dict(data)
     for field in _FIELDS:
-        if field in d and d[field] is not None:
-            setattr(computer, field, _clean(d[field]))
+        if field not in d:
+            continue
+        if d[field] is None and field in _REQUIRED:
+            continue
+        setattr(computer, field, _clean(d[field]))
 
     computer.updated_at = utcnow_iso()
 

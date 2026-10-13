@@ -1,72 +1,70 @@
-{% set editing = computer and computer.id %}
+{% set editing = computer_id %}
 <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="form-heading">
 <h2 id="form-heading">{{ "Edit computer" if editing else "Add computer" }}</h2>
 <form
   {% if editing %}
-    hx-put="/computers/{{ computer.id }}"
-    hx-target="#computer-{{ computer.id }}"
-    hx-swap="outerHTML"
+    hx-put="/computers/{{ computer_id }}"
   {% else %}
-    hx-post="/computers"
-    hx-target="#computer-table-body"
-    hx-swap="afterbegin"
+    hx-post="/computers" action="/computers" method="post"
   {% endif %}
+  hx-target="#modal"
+  hx-swap="innerHTML"
   class="computer-form">
 
   {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
 
   <div class="form-group">
     <label for="friendly_name">Friendly Name</label>
-    <input type="text" id="friendly_name" aria-describedby="friendly_name-error" name="friendly_name" value="{{ computer.friendly_name or '' }}" required>
-    <span class="field-error" role="alert" id="friendly_name-error"></span>
+    <input type="text" id="friendly_name" aria-describedby="friendly_name-error" name="friendly_name"{% if errors and errors.friendly_name %} aria-invalid="true"{% endif %} value="{{ computer.friendly_name or '' }}" required>
+    <span class="field-error" role="alert" id="friendly_name-error">{{ errors.friendly_name if errors and errors.friendly_name else "" }}</span>
   </div>
 
   <div class="form-group">
     <label for="rustdesk_id">RustDesk ID</label>
-    <input type="text" id="rustdesk_id" aria-describedby="rustdesk_id-error" name="rustdesk_id" value="{{ computer.rustdesk_id or '' }}" required>
-    <span class="field-error" role="alert" id="rustdesk_id-error"></span>
+    <input type="text" id="rustdesk_id" aria-describedby="rustdesk_id-error" name="rustdesk_id"{% if errors and errors.rustdesk_id %} aria-invalid="true"{% endif %} value="{{ computer.rustdesk_id or '' }}" required>
+    <span class="field-error" role="alert" id="rustdesk_id-error">{{ errors.rustdesk_id if errors and errors.rustdesk_id else "" }}</span>
   </div>
 
   <div class="form-group">
     <label for="hostname">Hostname</label>
-    <input type="text" id="hostname" aria-describedby="hostname-error" name="hostname" value="{{ computer.hostname or '' }}">
-    <span class="field-error" role="alert" id="hostname-error"></span>
+    <input type="text" id="hostname" aria-describedby="hostname-error" name="hostname"{% if errors and errors.hostname %} aria-invalid="true"{% endif %} value="{{ computer.hostname or '' }}">
+    <span class="field-error" role="alert" id="hostname-error">{{ errors.hostname if errors and errors.hostname else "" }}</span>
   </div>
 
   <div class="form-group">
     <label for="local_ip">Local IP</label>
-    <input type="text" id="local_ip" aria-describedby="local_ip-error" name="local_ip" value="{{ computer.local_ip or '' }}">
-    <span class="field-error" role="alert" id="local_ip-error"></span>
+    <input type="text" id="local_ip" aria-describedby="local_ip-error" name="local_ip"{% if errors and errors.local_ip %} aria-invalid="true"{% endif %} value="{{ computer.local_ip or '' }}">
+    <span class="field-error" role="alert" id="local_ip-error">{{ errors.local_ip if errors and errors.local_ip else "" }}</span>
   </div>
 
   <div class="form-group">
     <label for="operating_system">Operating System</label>
-    <input type="text" id="operating_system" aria-describedby="operating_system-error" name="operating_system" value="{{ computer.operating_system or '' }}">
-    <span class="field-error" role="alert" id="operating_system-error"></span>
+    <input type="text" id="operating_system" aria-describedby="operating_system-error" name="operating_system"{% if errors and errors.operating_system %} aria-invalid="true"{% endif %} value="{{ computer.operating_system or '' }}">
+    <span class="field-error" role="alert" id="operating_system-error">{{ errors.operating_system if errors and errors.operating_system else "" }}</span>
   </div>
 
   <div class="form-group">
     <label for="username">Username</label>
-    <input type="text" id="username" aria-describedby="username-error" name="username" value="{{ computer.username or '' }}">
-    <span class="field-error" role="alert" id="username-error"></span>
+    <input type="text" id="username" aria-describedby="username-error" name="username"{% if errors and errors.username %} aria-invalid="true"{% endif %} value="{{ computer.username or '' }}">
+    <span class="field-error" role="alert" id="username-error">{{ errors.username if errors and errors.username else "" }}</span>
   </div>
 
   <div class="form-group">
     <label for="location">Location</label>
-    <input type="text" id="location" aria-describedby="location-error" name="location" value="{{ computer.location or '' }}">
-    <span class="field-error" role="alert" id="location-error"></span>
+    <input type="text" id="location" aria-describedby="location-error" name="location"{% if errors and errors.location %} aria-invalid="true"{% endif %} value="{{ computer.location or '' }}">
+    <span class="field-error" role="alert" id="location-error">{{ errors.location if errors and errors.location else "" }}</span>
   </div>
 
   <div class="form-group">
     <label for="notes">Notes</label>
-    <textarea id="notes" aria-describedby="notes-error" name="notes">{{ computer.notes or '' }}</textarea>
-    <span class="field-error" role="alert" id="notes-error"></span>
+    <textarea id="notes" aria-describedby="notes-error" name="notes"{% if errors and errors.notes %} aria-invalid="true"{% endif %}>{{ computer.notes or '' }}</textarea>
+    <span class="field-error" role="alert" id="notes-error">{{ errors.notes if errors and errors.notes else "" }}</span>
   </div>
 
   <div class="form-group">
     <label for="tags">Tags</label>
-    <input type="text" id="tags" aria-describedby="tags-error" name="tags" value="{{ computer.tags or '' }}" placeholder="e.g. office, windows">
-    <span class="field-error" role="alert" id="tags-error"></span>
+    <input type="text" id="tags" aria-describedby="tags-error" name="tags"{% if errors and errors.tags %} aria-invalid="true"{% endif %} value="{{ computer.tags or '' }}" placeholder="e.g. office, windows">
+    <span class="field-error" role="alert" id="tags-error">{{ errors.tags if errors and errors.tags else "" }}</span>
   </div>
 
   <div class="form-actions">

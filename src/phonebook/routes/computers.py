@@ -1,5 +1,4 @@
 import os
-from types import SimpleNamespace
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -24,6 +23,12 @@ templates_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__f
 templates = Jinja2Templates(directory=templates_dir)
 
 
+_FORM_FIELDS = (
+    "friendly_name", "rustdesk_id", "hostname", "local_ip", "operating_system",
+    "username", "location", "notes", "tags",
+)
+
+
 def _is_hx(request: Request) -> bool:
     return request.headers.get("HX-Request") is not None
 
@@ -41,6 +46,44 @@ async def _form_dict(request: Request) -> dict:
     return data
 
 
+def _field_errors(exc: ValidationError) -> dict:
+    """Map each invalid field to a human-readable message."""
+    errors: dict = {}
+    for err in exc.errors():
+        field = str(err["loc"][0]) if err.get("loc") else "form"
+        if err.get("type") == "missing" or err.get("input") is None:
+            message = "This field is required"
+        else:
+            message = err.get("msg", "Invalid value").removeprefix("Value error, ")
+        errors.setdefault(field, message)
+    return errors
+
+
+def _render_form(request: Request, computer, computer_id=None, errors=None, error=None):
+    # HTMX only swaps 2xx responses, so a re-rendered form is 200 for HTMX and
+    # 422 for a plain form post.
+    return templates.TemplateResponse(
+        request,
+        "partials/computer_form.html",
+        {
+            "computer": computer,
+            "computer_id": computer_id,
+            "errors": errors or {},
+            "error": error,
+            "is_hx_request": _is_hx(request),
+        },
+        status_code=200 if (_is_hx(request) or not (errors or error)) else 422,
+    )
+
+
+def _saved(request: Request) -> Response:
+    # Reload so the table, its count and the empty state all reflect the change
+    # and the modal closes.
+    if _is_hx(request):
+        return Response(status_code=200, headers={"HX-Refresh": "true"})
+    return RedirectResponse(url="/", status_code=302)
+
+
 @router.get("/", response_class=HTMLResponse)
 async def list_computers(request: Request, db=Depends(get_db)) -> Response:
     computers = get_all_computers(db)
@@ -53,23 +96,20 @@ async def list_computers(request: Request, db=Depends(get_db)) -> Response:
 
 @router.get("/computers/new", response_class=HTMLResponse)
 async def new_computer_form(request: Request) -> Response:
-    return templates.TemplateResponse(
-        request,
-        "partials/computer_form.html",
-        {"computer": None, "is_hx_request": _is_hx(request)},
-    )
+    return _render_form(request, None)
 
 
 # Must be declared before "/computers/{computer_id}" so "search" is not parsed as an id.
 @router.get("/computers/search", response_class=HTMLResponse)
-async def search_computers_route(request: Request, q: str, db=Depends(get_db)) -> Response:
-    if not q or len(q.strip()) < 1:
-        raise HTTPException(status_code=400, detail="Search query must be at least 1 character")
-    computers = search_computers(db, q)
+async def search_computers_route(request: Request, q: str = "", db=Depends(get_db)) -> Response:
+    # A cleared search box shows every computer again (a 4xx would leave the
+    # filtered rows on screen, since HTMX does not swap error responses).
+    q = q.strip()
+    computers = search_computers(db, q) if q else get_all_computers(db)
     return templates.TemplateResponse(
         request,
         "partials/computer_rows.html",
-        {"computers": computers, "is_hx_request": _is_hx(request)},
+        {"computers": computers, "query": q, "is_hx_request": _is_hx(request)},
     )
 
 
@@ -90,11 +130,7 @@ async def edit_computer_form(request: Request, computer_id: int, db=Depends(get_
     computer = get_computer(db, computer_id)
     if not computer:
         raise HTTPException(status_code=404, detail="Computer not found")
-    return templates.TemplateResponse(
-        request,
-        "partials/computer_form.html",
-        {"computer": computer, "is_hx_request": _is_hx(request)},
-    )
+    return _render_form(request, computer, computer_id=computer_id)
 
 
 @router.post("/computers", response_class=HTMLResponse)
@@ -103,75 +139,41 @@ async def create_computer_route(request: Request, db=Depends(get_db)) -> Respons
     try:
         form = ComputerCreate(**raw)
     except ValidationError as exc:
-        return templates.TemplateResponse(
-            request,
-            "partials/computer_form.html",
-            {"computer": SimpleNamespace(**raw), "error": _first_error(exc), "is_hx_request": _is_hx(request)},
-        )
+        return _render_form(request, raw, errors=_field_errors(exc))
 
     try:
-        new_computer = create_computer(db, form)
+        create_computer(db, form)
     except IntegrityError:
         db.rollback()
-        return templates.TemplateResponse(
-            request,
-            "partials/computer_form.html",
-            {
-                "computer": SimpleNamespace(**raw),
-                "error": "A computer with this RustDesk ID already exists",
-                "is_hx_request": _is_hx(request),
-            },
-        )
+        return _render_form(request, raw, error="A computer with this RustDesk ID already exists")
 
-    if _is_hx(request):
-        return templates.TemplateResponse(
-            request,
-            "partials/computer_row.html",
-            {"computer": new_computer, "is_hx_request": True},
-        )
-    return RedirectResponse(url="/", status_code=302)
+    return _saved(request)
 
 
 @router.put("/computers/{computer_id}", response_class=HTMLResponse)
 async def update_computer_route(request: Request, computer_id: int, db=Depends(get_db)) -> Response:
-    raw = await _form_dict(request)
-    try:
-        form = ComputerUpdate(**raw)
-    except ValidationError as exc:
-        return templates.TemplateResponse(
-            request,
-            "partials/computer_form.html",
-            {
-                "computer": SimpleNamespace(id=computer_id, **raw),
-                "error": _first_error(exc),
-                "is_hx_request": _is_hx(request),
-            },
-        )
-
-    try:
-        updated_computer = update_computer(db, computer_id, form)
-    except IntegrityError:
-        db.rollback()
-        return templates.TemplateResponse(
-            request,
-            "partials/computer_form.html",
-            {
-                "computer": SimpleNamespace(id=computer_id, **raw),
-                "error": "A computer with this RustDesk ID already exists",
-                "is_hx_request": _is_hx(request),
-            },
-        )
-
-    if not updated_computer:
+    if not get_computer(db, computer_id):
         raise HTTPException(status_code=404, detail="Computer not found")
 
-    if _is_hx(request):
-        return templates.TemplateResponse(
-            request,
-            "partials/computer_row.html",
-            {"computer": updated_computer, "is_hx_request": True},
+    raw = await _form_dict(request)
+    try:
+        # The edit form submits every field, so validate it like a create
+        # (friendly_name and rustdesk_id required); blank optional fields clear.
+        ComputerCreate(**raw)
+        form = ComputerUpdate(**{field: raw.get(field) for field in _FORM_FIELDS})
+    except ValidationError as exc:
+        return _render_form(request, raw, computer_id=computer_id, errors=_field_errors(exc))
+
+    try:
+        update_computer(db, computer_id, form)
+    except IntegrityError:
+        db.rollback()
+        return _render_form(
+            request, raw, computer_id=computer_id,
+            error="A computer with this RustDesk ID already exists",
         )
-    return RedirectResponse(url="/", status_code=302)
+
+    return _saved(request)
 
 
 @router.delete("/computers/{computer_id}")
@@ -181,12 +183,3 @@ async def delete_computer_route(request: Request, computer_id: int, db=Depends(g
     delete_computer(db, computer_id)
     return Response(status_code=200)
 
-
-def _first_error(exc: ValidationError) -> str:
-    """Human-readable message from the first validation error."""
-    errors = exc.errors()
-    if not errors:
-        return "Invalid input"
-    err = errors[0]
-    field = err.get("loc", ["field"])[0]
-    return f"{field}: {err.get('msg', 'invalid value')}"

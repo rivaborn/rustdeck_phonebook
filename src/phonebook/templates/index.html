@@ -20,18 +20,7 @@
                 </tr>
             </thead>
             <tbody id="computer-table-body">
-                {% for computer in computers %}
-                    {% include "partials/computer_row.html" %}
-                {% else %}
-                    <tr class="empty-row">
-                        <td colspan="7" class="empty-cell">
-                            <div class="empty-state">
-                                <p>No computers yet. Add the first one to start your phone book.</p>
-                                <button class="btn btn-primary" hx-get="/computers/new" hx-target="#modal" hx-swap="innerHTML">Add computer</button>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
+                {% include "partials/computer_rows.html" %}
             </tbody>
         </table>
     </div>

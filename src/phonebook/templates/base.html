@@ -25,7 +25,7 @@
                 <div class="search">
                     <label for="search-input" class="visually-hidden">Search computers</label>
                     <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-                    <input type="search" id="search-input" name="q" class="input" placeholder="Search computers…" autocomplete="off" hx-get="/computers/search" hx-target="#computer-table-body" hx-trigger="input changed delay:300ms" hx-indicator="#computer-table-body">
+                    <input type="search" id="search-input" name="q" class="input" placeholder="Search computers…" autocomplete="off" hx-get="/computers/search" hx-target="#computer-table-body" hx-trigger="input changed delay:300ms, search" hx-indicator="#computer-table-body">
                 </div>
                 <nav class="export-nav" aria-label="Export">
                     <a class="btn btn-ghost btn-sm" href="/export/json">Export JSON</a>
