@@ -1,25 +1,17 @@
 function showCopyTooltip(message) {
-    const tooltip = document.createElement('div');
-    tooltip.textContent = message;
-    tooltip.style.position = 'fixed';
-    tooltip.style.bottom = '10px';
-    tooltip.style.right = '10px';
-    tooltip.style.backgroundColor = 'black';
-    tooltip.style.color = 'white';
-    tooltip.style.padding = '5px 10px';
-    tooltip.style.borderRadius = '4px';
-    tooltip.style.zIndex = '1000';
-    tooltip.style.opacity = '1';
-    tooltip.style.transition = 'opacity 0.5s';
+    const toast = document.createElement('div');
+    toast.className = message === 'Copied!' ? 'toast' : 'toast toast-error';
+    toast.setAttribute('role', 'status');
+    toast.textContent = message;
 
-    document.body.appendChild(tooltip);
+    document.body.appendChild(toast);
 
     setTimeout(() => {
-        tooltip.style.opacity = '0';
+        toast.classList.add('is-leaving');
         setTimeout(() => {
-            document.body.removeChild(tooltip);
-        }, 500);
-    }, 1000);
+            toast.remove();
+        }, 200);
+    }, 1200);
 }
 
 function legacyCopy(text) {

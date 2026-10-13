@@ -1,5 +1,5 @@
-<div class="modal-content">
-  <h2>Computer Details</h2>
+<div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="detail-heading">
+  <h2 id="detail-heading">{{ computer.friendly_name or 'Computer details' }}</h2>
   <dl class="detail-list">
     <div>
       <dt>Friendly Name</dt>
@@ -10,7 +10,7 @@
       <dd>
         {{ computer.rustdesk_id }}
         {% if computer.rustdesk_id %}
-          <button onclick="copyToClipboard('{{ computer.rustdesk_id }}')" class="copy-btn">Copy</button>
+          <button onclick="copyToClipboard('{{ computer.rustdesk_id }}')" class="copy-btn" type="button">Copy</button>
         {% endif %}
       </dd>
     </div>
@@ -23,7 +23,7 @@
       <dd>
         {{ computer.local_ip or 'N/A' }}
         {% if computer.local_ip %}
-          <button onclick="copyToClipboard('{{ computer.local_ip }}')" class="copy-btn">Copy</button>
+          <button onclick="copyToClipboard('{{ computer.local_ip }}')" class="copy-btn" type="button">Copy</button>
         {% endif %}
       </dd>
     </div>
@@ -64,5 +64,8 @@
       <dd>{{ computer.updated_at }}</dd>
     </div>
   </dl>
-  <button hx-get="/computers/{{ computer.id }}/edit" hx-target="#modal" class="btn btn-primary">Edit</button>
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" onclick="document.getElementById('modal').innerHTML = '';">Close</button>
+    <button hx-get="/computers/{{ computer.id }}/edit" hx-target="#modal" class="btn btn-primary">Edit</button>
+  </div>
 </div>

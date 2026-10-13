@@ -1,23 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Hey there! 👋</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Friendly Name</th>
-            <th>RustDesk ID</th>
-            <th>OS</th>
-            <th>Location</th>
-            <th>Tags</th>
-            <th>Updated</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody id="computer-table-body">
-        {% for computer in computers %}
-            {% include "partials/computer_row.html" %}
-        {% endfor %}
-    </tbody>
-</table>
+<section class="panel table-card" aria-labelledby="computers-heading">
+    <div class="section-head">
+        <h2 id="computers-heading">Computers</h2>
+        <span class="muted">{{ computers | length }} total</span>
+    </div>
+    <div class="table-wrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Friendly name</th>
+                    <th scope="col">RustDesk ID</th>
+                    <th scope="col">OS</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Tags</th>
+                    <th scope="col">Updated</th>
+                    <th scope="col"><span class="visually-hidden">Actions</span></th>
+                </tr>
+            </thead>
+            <tbody id="computer-table-body">
+                {% for computer in computers %}
+                    {% include "partials/computer_row.html" %}
+                {% else %}
+                    <tr class="empty-row">
+                        <td colspan="7" class="empty-cell">
+                            <div class="empty-state">
+                                <p>No computers yet. Add the first one to start your phone book.</p>
+                                <button class="btn btn-primary" hx-get="/computers/new" hx-target="#modal" hx-swap="innerHTML">Add computer</button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
 {% endblock %}
