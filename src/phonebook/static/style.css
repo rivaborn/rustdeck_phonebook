@@ -42,6 +42,7 @@
   --font-sans: "Inter", "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-size-xs: 13px;
   --font-size-body: 15px;
+  --font-size-input: 16px;      /* >= 16px stops iOS Safari zooming on focus */
   --font-size-md: 18px;
   --font-size-lg: 22px;
   --font-size-xl: 28px;
@@ -82,6 +83,7 @@
   --label-col-min: 96px;
   --tags-max: 136px;
   --col-text-max: 140px;
+  --brand-mark-sm: 40px;
   --tracking-caps: 0.06em;
   --tracking-mono: 0.02em;
 
@@ -434,6 +436,10 @@ a {
   font-size: var(--font-size-xs);
   font-weight: var(--weight-medium);
   white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
 }
 
 .muted {
@@ -484,11 +490,16 @@ a {
   white-space: nowrap;
 }
 
-/* Free-text columns wrap so long names don't push the actions off-card */
+/* Free-text cells wrap at word boundaries; very long words still break */
 .table td.wrap {
   white-space: normal;
-  max-width: var(--col-text-max);
   overflow-wrap: break-word;
+}
+
+/* Names are often single long hostnames; let them break anywhere */
+.table td.cell-name .clickable {
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .table .tags {
@@ -602,6 +613,7 @@ a {
   width: 100%;
   max-width: var(--modal-max);
   max-height: calc(100vh - var(--space-8));
+  max-height: calc(100dvh - var(--space-8));
   overflow-y: auto;
   padding: var(--space-6);
   border-radius: var(--radius-panel);
@@ -651,6 +663,7 @@ a {
   right: var(--gutter);
   bottom: var(--gutter);
   z-index: var(--z-toast);
+  max-width: calc(100vw - 2 * var(--gutter));
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -707,10 +720,17 @@ a {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  flex: 1 1 auto;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.brand h1 {
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .brand-mark {
+  flex: none;
   display: grid;
   place-items: center;
   width: var(--control-h);
@@ -735,6 +755,7 @@ a {
 
 .export-nav {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-4);
 }
 
@@ -753,6 +774,13 @@ a {
 @media (min-width: 1024px) {
   .table-card {
     padding: var(--space-4);
+  }
+
+  /* Cap free-text columns so long names don't push the actions off-card.
+     Desktop only: in the stacked cards this cap squeezed names to one
+     letter per line. */
+  .table td.wrap {
+    max-width: var(--col-text-max);
   }
 }
 
@@ -817,6 +845,19 @@ a {
     font-weight: var(--weight-medium);
   }
 
+  /* Name is the card title: full width, no label */
+  .table td.cell-name {
+    display: block;
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-tight);
+  }
+
+  .table td.cell-name::before {
+    content: none;
+  }
+
   .table td.empty-cell {
     display: block;
   }
@@ -826,10 +867,15 @@ a {
     box-shadow: none;
   }
 
+  .table td.cell-actions {
+    display: block;
+  }
+
   .table .actions {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     padding-top: var(--space-3);
+    box-shadow: inset 0 1px 0 var(--shadow-dark);
   }
 
   .empty-state {
@@ -841,7 +887,7 @@ a {
   h1 { font-size: var(--font-size-xl); }
 }
 
-@media (min-width: 640px) and (max-width: 1023px) {
+@media (min-width: 720px) and (max-width: 1023px) {
   .table tbody {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -860,6 +906,83 @@ a {
 @media (min-width: 1024px) {
   .page {
     padding-top: var(--space-12);
+  }
+}
+
+/* Phones: tighter chrome, full-width controls, no focus zoom */
+@media (max-width: 639px) {
+  .page {
+    padding-top: var(--space-4);
+    gap: var(--space-6);
+  }
+
+  .brand-mark {
+    width: var(--brand-mark-sm);
+    height: var(--brand-mark-sm);
+  }
+
+  .app-header > .btn {
+    padding: 0 var(--space-4);
+  }
+
+  .search {
+    flex-basis: 100%;
+  }
+
+  .export-nav {
+    width: 100%;
+  }
+
+  .export-nav .btn {
+    flex: 1 1 0;
+  }
+
+  .input,
+  .form-group input,
+  .form-group textarea {
+    font-size: var(--font-size-input);
+  }
+
+  .table-card {
+    padding: var(--space-3);
+  }
+
+  .section-head {
+    padding: var(--space-2) var(--space-2) var(--space-4);
+  }
+
+  .table td {
+    grid-template-columns: minmax(0, var(--label-col-min)) minmax(0, 1fr);
+  }
+
+  #modal:not(:empty) {
+    align-items: start;
+  }
+
+  .modal-content {
+    padding: var(--space-4);
+  }
+
+  .modal-content > h2 {
+    margin-bottom: var(--space-4);
+    overflow-wrap: anywhere;
+  }
+
+  .form-actions .btn {
+    flex: 1 1 0;
+  }
+
+  .toast {
+    left: var(--gutter);
+    justify-content: center;
+  }
+}
+
+/* Touch screens: row actions get full-size hit targets */
+@media (pointer: coarse) {
+  .btn-icon {
+    width: var(--control-h);
+    min-height: var(--control-h);
   }
 }
 
